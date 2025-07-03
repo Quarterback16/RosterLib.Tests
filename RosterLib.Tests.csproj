@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Cache" Version="1.0.0" />
     <PackageReference Include="TFLLib" Version="1.0.0" />
+    <PackageReference Include="WikiPages" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
