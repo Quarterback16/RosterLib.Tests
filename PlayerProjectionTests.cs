@@ -143,5 +143,30 @@ namespace RosterLib.Tests
                     FolderHelper.PlayerMarkdownFolder()));
             Assert.IsTrue(string.IsNullOrEmpty(result));
         }
+
+        //[Ignore]  //  its a slow integration test
+        [TestMethod]
+        public void TestPlayerProjection()
+        {
+            var g = new NFLGame("2025:13-O");
+            var testMsg = new PlayerGameProjectionMessage()
+            {
+                Player = new NFLPlayer("HARVRJ01"),
+                Game = g,
+                Prediction = g.GetPrediction("unit")
+            };
+            var cut = new PullMetricsFromPrediction(testMsg);
+            Assert.IsTrue(
+                testMsg.Game.PlayerGameMetrics.Count > 12);
+            foreach (var pgm in testMsg.Game.PlayerGameMetrics)
+            {
+                if (pgm.PlayerId == "HARVRJ01")
+                {
+                    Console.WriteLine(pgm);
+                    Assert.IsTrue(pgm.ProjYDr > 0);
+                    Assert.IsTrue(pgm.ProjTDr > 0);
+                }
+            }
+        }
     }
 }
