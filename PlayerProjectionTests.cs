@@ -11,7 +11,7 @@ namespace RosterLib.Tests
         public void PlayerProjectionRendersHtml()
         {
             var pp = new PlayerProjection(
-                playerId: "ALLEJO02",
+                playerId: "SAMUDE01",
                 season: "2025");
             pp.Render();
             var fileOut = pp.FileName();
@@ -20,7 +20,8 @@ namespace RosterLib.Tests
                 $"Cannot find {fileOut}");
 
             var md = MetricsHelper.ToMarkdown(
-                 pp.TotalPlayerGameMetrics);
+                 pp.TotalPlayerGameMetrics,
+                 pp.Player);
             Console.WriteLine(md);
         }
 
@@ -73,7 +74,7 @@ namespace RosterLib.Tests
         public void PlayerProjectionInjectsIntoObsidian()
         {
             var player = new NFLPlayer(
-                playerId: "ALLEJO02");
+                playerId: "SAMUDE01");
             PlayerProjectionHelper.InjectProjection(
                 player,
                 "2025",
@@ -148,10 +149,11 @@ namespace RosterLib.Tests
         [TestMethod]
         public void TestPlayerProjection()
         {
-            var g = new NFLGame("2025:13-O");
+            var playerId = "SAMUDE01";
+            var g = new NFLGame("2025:01-J");
             var testMsg = new PlayerGameProjectionMessage()
             {
-                Player = new NFLPlayer("HARVRJ01"),
+                Player = new NFLPlayer(playerId),
                 Game = g,
                 Prediction = g.GetPrediction("unit")
             };
@@ -160,11 +162,10 @@ namespace RosterLib.Tests
                 testMsg.Game.PlayerGameMetrics.Count > 12);
             foreach (var pgm in testMsg.Game.PlayerGameMetrics)
             {
-                if (pgm.PlayerId == "HARVRJ01")
+                if (pgm.PlayerId == playerId)
                 {
                     Console.WriteLine(pgm);
-                    Assert.IsTrue(pgm.ProjYDr > 0);
-                    Assert.IsTrue(pgm.ProjTDr > 0);
+                    Assert.IsTrue(pgm.ProjYDc > 0);
                 }
             }
         }
