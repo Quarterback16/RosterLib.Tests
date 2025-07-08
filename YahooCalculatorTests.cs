@@ -56,7 +56,9 @@
         {
             var sut = new YahooMasterGenerator(
                 fullSeason: false,
-                timekeeper: new FakeTimeKeeper(season: "2016", week: "09"));
+                timekeeper: new FakeTimeKeeper(
+                    season: "2016", 
+                    week: "09"));
             var key = $"{"2016"}:{"09"}:{"CARRDE01"}";
             var stat = sut.YahooMaster.TheHt[key];
             Assert.IsNotNull(stat);
