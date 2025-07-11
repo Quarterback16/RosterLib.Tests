@@ -9,29 +9,22 @@ namespace RosterLib.Tests
     public class PlayerCsvTests
     {
         [TestMethod]
-        public void TestPlayerCsvReportCanRenderToCsv()
         {
-            var timeKeeper = new TimeKeeper(null);
             var sut = new PlayerCsv(
-                timeKeeper,
                 new AdpMaster(
-                    $"{ConfigHelper.CsvFolder()}ADP {timeKeeper.CurrentSeason()}.csv"),
                 new DoozyService(
-                    timeKeeper.CurrentSeason(),
                     ConfigHelper.JsonFolder()),
                 new ContractYearService(
-                    timeKeeper.CurrentSeason(),
                     ConfigHelper.JsonFolder()),
                 new ProjectionService(
                     new DbfPlayerGameMetricsDao(),
-                    new DataLibrarian(
-                        Utility.NflConnectionString(),
-                        Utility.TflConnectionString(),
-                        Utility.CtlConnectionString(),
-                        logger: null)))
-            {
-                DoProjections = true  // 2024-06-01 decided to stick to one CSV format as it feeds into a lot of stuff
-            };
+                        new DataLibrarian(
+                            Utility.NflConnectionString(),
+                            Utility.TflConnectionString(),
+                            Utility.CtlConnectionString(),
+                        {
+                            DoProjections = true  // 2024-06-01 decided to stick to one CSV format as it feeds into a lot of stuff
+                        };
             Assert.IsNotNull(sut);
             sut.DoReport();
         }
