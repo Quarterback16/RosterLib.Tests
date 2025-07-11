@@ -1,6 +1,7 @@
 ﻿using RosterLib.Helpers;
 using RosterLib.Implementations;
 using RosterLib.Services;
+using System.Text;
 using TFLLib;
 
 namespace RosterLib.Tests
@@ -8,6 +9,25 @@ namespace RosterLib.Tests
     [TestClass]
     public class PlayerCsvTests
     {
+        public TimeKeeper? _tk;
+        public PlayerCsv? _sut;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _tk = new TimeKeeper(clock: null);
+            var adpCsvFile = ConfigHelper.AdpCsvFile(
+                season: _tk.CurrentSeason());
+            _sut = new PlayerCsv(
+                timekeeper: _tk,
+                adpMaster: new AdpMaster(adpCsvFile),
+                dzService: null,
+                startersOnly: true)
+            {
+                DoProjections = true,
+            };
+        }
+
         [TestMethod]
         public void TestPlayerCsvReportCanRenderToMarkdown()
         {
@@ -184,69 +204,75 @@ namespace RosterLib.Tests
         [TestMethod]
         public void TestRBListerToMarkdown()
         {
-            StartersProjections(
+            var md = _sut?.StartersProjections(
                 "RB", 
                 Constants.K_RUNNINGBACK_CAT);
+            Assert.IsFalse(
+                string.IsNullOrEmpty(md), 
+                "Markdown output is empty.");
+            Console.WriteLine(md);
         }
 
         [TestMethod]
         public void TestQBListerToMarkdown()
         {
-            StartersProjections(
+            var md = _sut?.StartersProjections(
                 "QB", 
                 Constants.K_QUARTERBACK_CAT);
+            Assert.IsFalse(
+                string.IsNullOrEmpty(md),
+                "Markdown output is empty.");
+            Console.WriteLine(md);
         }
 
         [TestMethod]
         public void TestWRListerToMarkdown()
         {
-            StartersProjections(
+            var md = _sut?.StartersProjections(
                 "WR", 
                 Constants.K_RECEIVER_CAT);
+            Assert.IsFalse(
+                string.IsNullOrEmpty(md),
+                "Markdown output is empty.");
+            Console.WriteLine(md);
         }
 
         [TestMethod]
         public void TestTEListerToMarkdown()
         {
-            StartersProjections(
+            var md = _sut?.StartersProjections(
                 "TE", 
                 Constants.K_RECEIVER_CAT);
+            Assert.IsFalse(
+                string.IsNullOrEmpty(md),
+                "Markdown output is empty.");
+            Console.WriteLine(md);
         }
 
         [TestMethod]
-        public void TestListerToMarkdown()
+        public void TestAllPositionsToMarkdown()
         {
-            StartersProjections("RB", Constants.K_RUNNINGBACK_CAT);
-            StartersProjections("QB", Constants.K_QUARTERBACK_CAT);
-            StartersProjections("WR", Constants.K_RECEIVER_CAT);
-            StartersProjections("TE", Constants.K_RECEIVER_CAT);
+            var output = new StringBuilder()
+                .AppendLine(
+                    _sut?.StartersProjections(
+                        "RB", 
+                        Constants.K_RUNNINGBACK_CAT))
+                .AppendLine(
+                    _sut?.StartersProjections(
+                        "QB", 
+                        Constants.K_QUARTERBACK_CAT))
+                .AppendLine(
+                    _sut?.StartersProjections(
+                        "WR", 
+                        Constants.K_RECEIVER_CAT))
+                .AppendLine(
+                    _sut?.StartersProjections(
+                        "TE", 
+                        Constants.K_RECEIVER_CAT))
+                .ToString();
+            Assert.IsFalse(string.IsNullOrEmpty(output));
         }
 
-        private static void StartersProjections(
-            string position,
-            string category)
-        {
-            var adpCsvFile = ConfigHelper.AdpCsvFile(
-                season: "2025");
-            var sut = new PlayerCsv(
-                timekeeper: new TimeKeeper(null),
-                adpMaster: new AdpMaster(adpCsvFile),
-                dzService: null,
-                startersOnly: true)
-            {
-                DoProjections = true,
 
-                Configs = new List<StarterConfig>
-                {
-                    new StarterConfig
-                    {
-                       Category = category,
-                       Position = position
-                    },
-                }
-            };
-            Assert.IsNotNull(sut);
-            sut.RenderAsMarkdown(position);
-        }
     }
 }
