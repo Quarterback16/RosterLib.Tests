@@ -133,5 +133,6 @@ namespace RosterLib.Tests
             Assert.IsTrue(result != null);
             Array.ForEach(result, e => Console.WriteLine(e));
         }
+
     }
 }
