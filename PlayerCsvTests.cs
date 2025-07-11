@@ -200,7 +200,9 @@ namespace RosterLib.Tests
         [TestMethod]
         public void TestWRListerToMarkdown()
         {
-            StartersProjections("WR", Constants.K_RECEIVER_CAT);
+            StartersProjections(
+                "WR", 
+                Constants.K_RECEIVER_CAT);
         }
 
         [TestMethod]
@@ -224,11 +226,11 @@ namespace RosterLib.Tests
             string position,
             string category)
         {
+            var adpCsvFile = ConfigHelper.AdpCsvFile(
+                season: "2025");
             var sut = new PlayerCsv(
                 timekeeper: new TimeKeeper(null),
-                adpMaster: new AdpMaster(
-                    ConfigHelper.PlayerCsvFile(
-                        "2025")),
+                adpMaster: new AdpMaster(adpCsvFile),
                 dzService: null,
                 startersOnly: true)
             {
