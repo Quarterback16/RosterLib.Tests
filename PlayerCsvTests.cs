@@ -206,7 +206,9 @@ namespace RosterLib.Tests
         [TestMethod]
         public void TestTEListerToMarkdown()
         {
-            StartersProjections("TE", Constants.K_RECEIVER_CAT);
+            StartersProjections(
+                "TE", 
+                Constants.K_RECEIVER_CAT);
         }
 
         [TestMethod]
