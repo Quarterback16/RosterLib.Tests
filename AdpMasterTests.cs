@@ -54,6 +54,19 @@ namespace RosterLib.Tests
         }
 
         [TestMethod]
+        public void AdpHelper_CanListDefenceRankings()
+        {
+            _sut?.Load();
+            var md = AdpHelper.PositionRankingsToMarkDown(
+                _sut!,
+                "DST");
+            Assert.IsTrue(
+                md.Length > 0,
+                "Markdown should not be empty");
+            Console.WriteLine(md);
+        }
+
+        [TestMethod]
         public void AdpHelper_CanDoFullList()
         {
             _sut?.Load();
@@ -63,6 +76,24 @@ namespace RosterLib.Tests
                 md.Length > 0,
                 "Markdown should not be empty");
             Console.WriteLine(md);
+        }
+
+        [TestMethod]
+        public void AdpMasterCanTakeOutNoise()
+        {
+            _sut?.Load();
+            var result = _sut?.TakeOutNoise("Kenneth Walker III");
+            Console.WriteLine(result);
+            Assert.AreEqual("Kenneth Walker", result);
+        }
+
+        [TestMethod]
+        public void AdpMasterCanTakeOutSrNoise()
+        {
+            _sut?.Load();
+            var result = _sut?.TakeOutNoise("Deebo Samuel Sr.");
+            Console.WriteLine(result);
+            Assert.AreEqual("Deebo Samuel", result);
         }
 
         [TestMethod]
