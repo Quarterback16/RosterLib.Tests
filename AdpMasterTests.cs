@@ -33,6 +33,39 @@ namespace RosterLib.Tests
         }
 
         [TestMethod]
+        public void AdpMasterGetPosRank_Works()
+        {
+            _sut?.Load();
+            var adp = _sut?.GetAdpPosRank("Saquon Barkley");
+            Assert.AreEqual("RB2", adp);
+        }
+
+        [TestMethod]
+        public void AdpHelper_CanListPositionRankings()
+        {
+            _sut?.Load();
+            var md = AdpHelper.PositionRankingsToMarkDown(
+                _sut!,
+                "RB");
+            Assert.IsTrue(
+                md.Length > 0, 
+                "Markdown should not be empty");
+            Console.WriteLine(md);
+        }
+
+        [TestMethod]
+        public void AdpHelper_CanDoFullList()
+        {
+            _sut?.Load();
+            var md = AdpHelper.FullAdpToMarkDown(
+                _sut!);
+            Assert.IsTrue(
+                md.Length > 0,
+                "Markdown should not be empty");
+            Console.WriteLine(md);
+        }
+
+        [TestMethod]
         public void AdpMasterGet_ForUnknownPlayer_ReturnsEmptyString()
         {
             _sut?.Load();
