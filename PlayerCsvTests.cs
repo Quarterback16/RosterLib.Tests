@@ -29,6 +29,39 @@ namespace RosterLib.Tests
         }
 
         [TestMethod]
+        public void PlayerCsvReportCreatesCsvFile()
+        {
+            var timeKeeper = new TimeKeeper(null);
+            var sut = new PlayerCsv(
+                timeKeeper,
+                new AdpMaster(
+                    $"{ConfigHelper.CsvFolder()}ADP {timeKeeper.CurrentSeason()}.csv"),
+                new DoozyService(
+                    timeKeeper.CurrentSeason(),
+                    ConfigHelper.JsonFolder()),
+                new ContractYearService(
+                    timeKeeper.CurrentSeason(),
+                    ConfigHelper.JsonFolder()),
+                new ProjectionService(
+                    new DbfPlayerGameMetricsDao(),
+                    new DataLibrarian(
+                        Utility.NflConnectionString(),
+                        Utility.TflConnectionString(),
+                        Utility.CtlConnectionString(),
+                        logger: null)))
+            {
+                DoProjections = true  // 2024-06-01 decided to stick to one CSV format as it feeds into a lot of stuff
+            };
+            Assert.IsNotNull(sut);
+            sut.RenderAsHtml();
+            Assert.IsTrue(
+                File.Exists(
+                    ConfigHelper.PlayerCsvFile(timeKeeper.CurrentSeason())),
+                "CSV file was not created.");
+        }
+
+
+        [TestMethod]
         public void TestPlayerCsvReportCanRenderToMarkdown()
         {
             var timeKeeper = new TimeKeeper(null);
