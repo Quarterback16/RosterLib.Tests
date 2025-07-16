@@ -50,19 +50,21 @@
         [TestMethod]
         public void PredictionSeason_TalliesPredictions()
         {
-            var sut = new PredictionSeason("2025");
+            var ps = new PredictionSeason("2025");
+
+            Assert.IsNotNull(ps);
 
             Console.WriteLine(
-                $"Predicted TD passes {sut?.TDp}");
+                $"Predicted TD passes {ps.TDp}");
 
             Console.WriteLine(
-                $"Predicted YDp {sut?.YDp}");
+                $"Predicted YDp {ps.YDp}");
 
             Console.WriteLine(
-                $"Predicted TD runs {sut?.TDr}");
+                $"Predicted TD runs {ps.TDr}");
 
             Console.WriteLine(
-                $"Predicted YDr {sut?.YDr}");
+                $"Predicted YDr {ps.YDr}");
 
             //sut.FrequencyTables(toMarkdown: true);
         }
