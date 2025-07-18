@@ -56,6 +56,8 @@ namespace RosterLib.Tests
 			Assert.IsTrue(result.RatingsHt.Count > 0);
 			Assert.IsTrue(result.Data.Rows.Count > 0);
 
+			DoRatingsSummary(result);
+
 			var mi = new MarkdownInjector();
 			var teamRank = 0;
 			result.Data.DefaultView.Sort = "RPTS DESC";
@@ -75,6 +77,20 @@ namespace RosterLib.Tests
 			}
 
 		}
+
+		private void DoRatingsSummary(MetricsContext metricsContext)
+		{
+			var summary = MetricsContextHelper.RankingSummary(
+				metricsContext);
+			Console.WriteLine(summary);
+			Console.WriteLine(
+				$@"Sending output to {
+					MetricsContextHelper.GradingsSummaryFileName(metricsContext)}");
+			File.WriteAllText(
+				path: MetricsContextHelper.GradingsSummaryFileName(metricsContext),
+				contents: summary);
+
+		}	
 
 		private string TeamPageFileName(
 			string teamCode) => 
