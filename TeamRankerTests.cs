@@ -21,9 +21,8 @@ namespace RosterLib.Tests
 
 		private static TeamRanker SystemUnderTest() =>
 			new TeamRanker(
-				new FakeTimeKeeper(
-					"2025",
-					"0"));
+				new TimeKeeper(
+					null));					
 
 		#endregion
 
@@ -50,7 +49,7 @@ namespace RosterLib.Tests
 				typeof(MetricsContext));
 			Assert.IsTrue(result.RankDate.Equals(
 				new DateTime(
-					2025, 09, 04,
+					2025, 09, 07,
 					0, 0, 0,
 					DateTimeKind.Unspecified)));
 			Assert.IsTrue(result.RatingsHt.Count > 0);
