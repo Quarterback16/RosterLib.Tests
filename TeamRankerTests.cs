@@ -35,13 +35,13 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TeamRankerReturnsMetricsContext()
 		{
-			_sut.ForceReRank = true;
+			_sut.ForceReRank = false;
 			var when = new DateTime(
-					2025, 07, 17,
+					2025, 07, 21,
 					0, 0, 0,
 					DateTimeKind.Unspecified);
 
-			var result = _sut.RankTeams(
+			var result = _sut?.RankTeams(
 				when);
 
 			Assert.IsInstanceOfType(

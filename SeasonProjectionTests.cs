@@ -6,9 +6,9 @@
         [TestMethod]
         public void TestNFLOutputMetric()
         {
-            var t = new NflTeam("BB")
+            var t = new NflTeam("PE")
             {
-                Season = "2022"
+                Season = "2025"
             };
             var predictor = new UnitPredictor
             {
@@ -22,7 +22,7 @@
             var sp = t.SeasonProjection(
                 predictor,
                 "Spread",
-                new DateTime(2022, 8, 20, 0, 0, 0, DateTimeKind.Unspecified ));
+                new DateTime(2025, 7, 21, 0, 0, 0, DateTimeKind.Unspecified ));
             Assert.IsFalse(
                 string.IsNullOrEmpty(sp));
         }
