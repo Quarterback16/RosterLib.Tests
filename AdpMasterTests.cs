@@ -10,7 +10,7 @@ namespace RosterLib.Tests
         [TestInitialize]
         public void Setup()
         {
-            var csvFile = $"{ConfigHelper.CsvFolder()}ADP 2025.csv";
+            var csvFile = $"{ConfigHelper.CsvFolder()}ADP-2024.csv";
             _sut = new AdpMaster(csvFile);
         }
 
@@ -46,7 +46,7 @@ namespace RosterLib.Tests
             _sut?.Load();
             var md = AdpHelper.PositionRankingsToMarkDown(
                 _sut!,
-                "RB");
+                "TE");
             Assert.IsTrue(
                 md.Length > 0, 
                 "Markdown should not be empty");

@@ -1,7 +1,6 @@
 ﻿using RosterLib.Helpers;
 using RosterLib.Implementations;
 using System.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RosterLib.Tests
 {
@@ -75,7 +74,7 @@ namespace RosterLib.Tests
 		public void PlayerProjectionInjectsIntoObsidian()
 		{
 			var player = new NFLPlayer(
-				playerId: "SAMUDE01");
+				playerId: "MIXOJO01");
 			PlayerProjectionHelper.InjectProjection(
 				player,
 				"2025",
