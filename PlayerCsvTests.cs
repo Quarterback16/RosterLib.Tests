@@ -35,7 +35,7 @@ namespace RosterLib.Tests
             var sut = new PlayerCsv(
                 timeKeeper,
                 new AdpMaster(
-                    $"{ConfigHelper.CsvFolder()}ADP {timeKeeper.CurrentSeason()}.csv"),
+                    $"{ConfigHelper.CsvFolder()}ADP-{timeKeeper.CurrentSeason()}.csv"),
                 new DoozyService(
                     timeKeeper.CurrentSeason(),
                     ConfigHelper.JsonFolder()),
@@ -68,7 +68,7 @@ namespace RosterLib.Tests
             var sut = new PlayerCsv(
                 timeKeeper,
                 new AdpMaster(
-                    $"{ConfigHelper.CsvFolder()}ADP {timeKeeper.CurrentSeason()}.csv"),
+					Int32.Parse(timeKeeper.CurrentSeason())),
                 new DoozyService(
                     timeKeeper.CurrentSeason(),
                     ConfigHelper.JsonFolder()),
