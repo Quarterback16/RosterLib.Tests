@@ -45,7 +45,7 @@ namespace RosterLib.Tests
 			_sut?.Load();
 			var md = AdpHelper.PositionRankingsToMarkDown(
 				_sut!,
-				"TE");
+				"DST");
 			Assert.IsTrue(
 				md.Length > 0, 
 				"Markdown should not be empty");
@@ -75,6 +75,16 @@ namespace RosterLib.Tests
 				md.Length > 0,
 				"Markdown should not be empty");
 			Console.WriteLine(md);
+		}
+
+		[TestMethod]
+		public void AdpHelper_CanDoDraftRoundNumbering()
+		{
+			var rd = AdpHelper.AsDraftRound(
+				18,
+				18);
+			Assert.AreEqual("1.18", rd);
+			Console.WriteLine(rd);
 		}
 
 		[TestMethod]
