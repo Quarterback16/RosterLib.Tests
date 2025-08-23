@@ -45,7 +45,7 @@ namespace RosterLib.Tests
 			_sut?.Load();
 			var md = AdpHelper.PositionRankingsToMarkDown(
 				_sut!,
-				"DST");
+				"WR");
 			Assert.IsTrue(
 				md.Length > 0, 
 				"Markdown should not be empty");
