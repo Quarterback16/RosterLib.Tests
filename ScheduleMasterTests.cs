@@ -1,0 +1,63 @@
+﻿using RosterLib.Helpers;
+using RosterLib.Implementations;
+
+namespace RosterLib.Tests
+{
+	[TestClass]
+	public class ScheduleMasterTests
+	{
+		public ScheduleMaster Sut { get; set; }
+
+		[TestInitialize]
+		public void Setup()
+		{
+			Sut = new ScheduleMaster();
+		}
+
+		[TestMethod]
+		public void ScheduleMaster_Instantiates_Ok()
+		{
+			Assert.IsNotNull(Sut);
+		}
+
+		[TestMethod]
+		public void ScheduleMaster_KnowsYahooSchedule_Ok()
+		{
+			var game = Sut.GetGame(
+				team: "7x7ers",
+				leagueCode: "YAH",
+				season: 2024,
+				round: 07);
+			Assert.IsNotNull(game);
+			Assert.AreNotEqual("??", game.AwayTeam, "No Away team");
+			Assert.AreNotEqual("??", game.HomeTeam, "No Home team");
+			Console.WriteLine(game);
+		}
+
+		[TestMethod]
+		public void ScheduleMaster_KnowsYahooOpponent_of77()
+		{
+			var opponent = Sut.OpponentOf(
+				team: "7x7ers",
+				leagueCode: "YAH",
+				season: 2025,
+				round: 03);
+			Assert.IsNotNull(opponent);
+			Assert.AreEqual("Finheads", opponent);
+			Assert.AreEqual("FH", CodeHelper.CodeFor("YAH", opponent));
+
+			Console.WriteLine(opponent);
+		}
+
+		[TestMethod]
+		public void ScheduleMaster_HandlesNoGame_Ok()
+		{
+			var game = Sut.GetGame(
+				team: "7x7ers",
+				leagueCode: "YAH",
+				season: 2023,
+				round: 16);
+			Assert.IsNull(game);
+		}
+	}
+}
