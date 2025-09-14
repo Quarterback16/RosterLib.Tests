@@ -14,15 +14,20 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Init()
 		{
-			WeekToDownload = "01";
+			WeekToDownload = "02";
 
 			Week = new NFLWeek(
 				seasonIn: "2025",
 				weekIn: WeekToDownload);
 
-			var outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
-			Console.WriteLine(
-				$"Downloading gamebooks to {outputFolder}");
+			string outputFolder;
+            if (Utility.HostName().ToUpper() == "MAHOMES")
+				outputFolder = $"c:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
+            else
+                outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
+            
+            Console.WriteLine(
+					$"Downloading gamebooks to {outputFolder}");
 			Sut = new GamebookGetterViaGameId(
 				new Downloader(
 					outputFolder),
