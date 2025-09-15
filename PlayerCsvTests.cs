@@ -49,7 +49,7 @@ namespace RosterLib.Tests
 						Utility.CtlConnectionString(),
 						logger: null)))
 			{
-				DoProjections = true  // 2024-06-01 decided to stick to one CSV format as it feeds into a lot of stuff
+				DoProjections = false  // 2024-06-01 decided to stick to one CSV format as it feeds into a lot of stuff
 			};
 			Console.WriteLine(
 				$"Using Data from {Utility.NflConnectionString()}");

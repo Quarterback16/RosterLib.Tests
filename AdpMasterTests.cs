@@ -35,8 +35,8 @@ namespace RosterLib.Tests
 		public void AdpMasterGetPosRank_Works()
 		{
 			_sut?.Load();
-			var adp = _sut?.GetAdpPosRank("Saquon Barkley");
-			Assert.AreEqual("RB2", adp);
+			var adp = _sut?.GetAdpPosRank("Lamar Jackson");
+			Assert.AreEqual("QB2", adp);
 		}
 
 		[TestMethod]

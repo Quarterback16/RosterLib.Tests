@@ -21,12 +21,12 @@ namespace RosterLib.Tests
 				weekIn: WeekToDownload);
 
 			string outputFolder;
-            if (Utility.HostName().ToUpper() == "MAHOMES")
+			if (Utility.HostName().ToUpper() == "MAHOMES")
 				outputFolder = $"c:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
-            else
-                outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
-            
-            Console.WriteLine(
+			else
+				outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
+			
+			Console.WriteLine(
 					$"Downloading gamebooks to {outputFolder}");
 			Sut = new GamebookGetterViaGameId(
 				new Downloader(
