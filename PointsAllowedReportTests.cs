@@ -25,7 +25,7 @@ namespace RosterLib.Tests
 			var sut = new PointsAllowedReport(
 				new FakeTimeKeeper(
 					season: "2025",
-					week: "02"));  // current week (looks back at prev)
+					week: "03"));  // current week (looks back at prev)
 			sut.RenderAsHtml();
 			Assert.IsTrue(File.Exists(sut.FileOut));
 			Console.WriteLine("{0} created.", sut.FileOut);
