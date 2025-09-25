@@ -26,12 +26,17 @@ namespace RosterLib.Tests
 			var game = Sut.GetGame(
 				team: "7x7ers",
 				leagueCode: "YAH",
-				season: 2024,
-				round: 07);
+				season: 2025,
+				round: 04);
 			Assert.IsNotNull(game);
 			Assert.AreNotEqual("??", game.AwayTeam, "No Away team");
 			Assert.AreNotEqual("??", game.HomeTeam, "No Home team");
 			Console.WriteLine(game);
+			Console.WriteLine(game.OpponentOf("77"));
+			Console.WriteLine(
+				CodeHelper.CodeFor(
+					"YAH",
+					game.OpponentOf("77")));
 		}
 
 		[TestMethod]
