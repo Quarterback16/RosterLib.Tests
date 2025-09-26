@@ -12,7 +12,8 @@ namespace RosterLib.Tests
 		{
 			var pp = new PlayerProjection(
 				playerId: "SAMUDE01",
-				season: "2025");
+				season: "2025",
+				week: 1);
 			pp.Render();
 			var fileOut = pp.FileName();
 			Assert.IsTrue(
@@ -59,7 +60,8 @@ namespace RosterLib.Tests
 		{
 			var pp = new PlayerProjection(
 				playerId: "ALLEJO02",
-				season: "2025");
+				season: "2025",
+				week: 1);
 			pp.Render(linked: true);
 			var str = pp.Str;
 			Assert.IsNotNull(
@@ -78,6 +80,7 @@ namespace RosterLib.Tests
 			PlayerProjectionHelper.InjectProjection(
 				player,
 				"2025",
+				1,
 				new MarkdownInjector(
 					FolderHelper.PlayerMarkdownFolder()));
 			Assert.IsNotNull(player);
@@ -92,6 +95,7 @@ namespace RosterLib.Tests
 			var result = PlayerProjectionHelper.InjectProjection(
 				player,
 				"2025",
+				1,
 				new MarkdownInjector(
 					FolderHelper.PlayerMarkdownFolder()));
 			Assert.IsTrue(string.IsNullOrEmpty(result));
@@ -140,6 +144,7 @@ namespace RosterLib.Tests
 			var result = PlayerProjectionHelper.InjectProjection(
 				player,
 				"2025",
+				1,
 				new MarkdownInjector(
 					FolderHelper.PlayerMarkdownFolder()));
 			Assert.IsTrue(string.IsNullOrEmpty(result));

@@ -69,7 +69,8 @@
         {
             var playerProjection = new PlayerProjection(
                 playerId: "HARVRJ01",
-                season: "2025");
+                season: "2025", 
+                week: 1);
             var p = new NFLPlayer("HARVRJ01");
             var g = new NFLGame("2025:13-O");
             g.LoadPrediction();
