@@ -70,13 +70,13 @@
             var playerProjection = new PlayerProjection(
                 playerId: "HARVRJ01",
                 season: "2025", 
-                week: 1);
+                week: 4);
             var p = new NFLPlayer("HARVRJ01");
             var g = new NFLGame("2025:13-O");
             g.LoadPrediction();
             var c = new YahooCalculator();
             var msg = c.Calculate(p, g);
-            var expected = 4.0M;  //  125(1)
+            var expected = 4.6M;  //  125(1)
             Assert.AreEqual(expected, msg.Player.Points);
             var gp = playerProjection.GameProjection(
                     g,
