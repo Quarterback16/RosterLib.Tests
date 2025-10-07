@@ -14,7 +14,7 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Init()
 		{
-			WeekToDownload = "04";
+			WeekToDownload = "05";
 
 			Week = new NFLWeek(
 				seasonIn: "2025",
