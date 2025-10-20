@@ -21,11 +21,12 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TestReportSpecificWeek()
 		{
+			//  using this current week (not played yet) to generate `Points-Allowed-lw.json`
 			//  need to do this in Playoffs as well
 			var sut = new PointsAllowedReport(
 				new FakeTimeKeeper(
 					season: "2025",
-					week: "06"));  //  next week
+					week: "07"));  //  next week
 			sut.RenderAsHtml();
 			Assert.IsTrue(File.Exists(sut.FileOut));
 			Console.WriteLine("{0} created.", sut.FileOut);
