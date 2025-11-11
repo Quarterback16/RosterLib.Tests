@@ -7,14 +7,14 @@ namespace RosterLib.Tests
 	[TestClass]
 	public class GamebookGetterTests
 	{
-		public string WeekToDownload { get; set; }
+		public string WeekToDownload { get; set; } = string.Empty;
 		public IGetGamebooks Sut { get; set; }
 		public NFLWeek Week { get; set; }
 
 		[TestInitialize]
 		public void Init()
 		{
-			WeekToDownload = "09";
+			WeekToDownload = "10";
 
 			Week = new NFLWeek(
 				seasonIn: "2025",
