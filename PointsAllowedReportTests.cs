@@ -23,10 +23,12 @@ namespace RosterLib.Tests
 		{
 			//  using this current week (not played yet) to generate `Points-Allowed-lw.json`
 			//  need to do this in Playoffs as well
+			var tk = new TimeKeeper(clock:null);
+			var nextWeek = tk.CurrentWeek(DateTime.Now) + 1;
 			var sut = new PointsAllowedReport(
 				new FakeTimeKeeper(
-					season: "2025",
-					week: "15"));  //  next week
+					season: tk.CurrentSeason(),
+					week: $"{nextWeek:0#}"));
 			sut.RenderAsHtml();
 			Assert.IsTrue(File.Exists(sut.FileOut));
 			Console.WriteLine("{0} created.", sut.FileOut);
