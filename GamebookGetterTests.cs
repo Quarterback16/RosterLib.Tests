@@ -14,7 +14,9 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Init()
 		{
-			WeekToDownload = "14";
+			WeekToDownload = new TimeKeeper(clock:null)
+				.CurrentWeek()
+				.ToString();
 
 			Week = new NFLWeek(
 				seasonIn: "2025",
