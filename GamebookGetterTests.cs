@@ -8,8 +8,8 @@ namespace RosterLib.Tests
 	public class GamebookGetterTests
 	{
 		public string WeekToDownload { get; set; } = string.Empty;
-		public IGetGamebooks Sut { get; set; }
-		public NFLWeek Week { get; set; }
+		public IGetGamebooks? Sut { get; set; }
+		public NFLWeek? Week { get; set; }
 
 		[TestInitialize]
 		public void Init()
@@ -39,14 +39,14 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TestGetGamebooks()
 		{
-			var result = Sut.DownloadWeek(Week);
+			var result = Sut?.DownloadWeek(Week);
 			Assert.IsTrue(result > 0);
 		}
 
 		[TestMethod]
 		public void TestNewDownloadSinglePdf()
 		{
-			var result = Sut.Download(
+			var result = Sut?.Download(
 				"2024",
 				3,
 				"patriots",
