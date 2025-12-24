@@ -43,16 +43,16 @@ namespace RosterLib.Tests
             Assert.IsTrue(result > 0);
         }
 
-        [TestMethod]
-        public void TestNewDownloadSinglePdf()
-        {
-            var result = Sut?.Download(
-                "2024",
-                3,
-                "patriots",
-                "jets");
-            Assert.IsTrue(result);
-        }
+		[TestMethod]
+		public void TestNewDownloadSinglePdf()
+		{
+			var result = Sut.Download(
+				"2024",
+				3,
+				"patriots",
+				"jets");
+			Assert.IsTrue(result);
+		}
 
         [TestMethod]
         public void TestDownloadSinglePdf()
