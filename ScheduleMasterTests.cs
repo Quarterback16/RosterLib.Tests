@@ -11,8 +11,10 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Setup()
 		{
-			Sut = new ScheduleMaster();
-		}
+			Sut = new ScheduleMaster(
+                "c://users//quart//Dropbox//json");
+
+        }
 
 		[TestMethod]
 		public void ScheduleMaster_Instantiates_Ok()
@@ -20,7 +22,14 @@ namespace RosterLib.Tests
 			Assert.IsNotNull(Sut);
 		}
 
-		[TestMethod]
+        [TestMethod]
+		[ExpectedException(typeof(System.IO.DirectoryNotFoundException))]
+        public void ScheduleMaster_Instantiates_Ok_WithPath()
+        {
+            new ScheduleMaster("nowhere");
+        }
+
+        [TestMethod]
 		public void ScheduleMaster_KnowsYahooSchedule_Ok()
 		{
 			var game = Sut.GetGame(
@@ -79,5 +88,13 @@ namespace RosterLib.Tests
 				round: 16);
 			Assert.IsNull(game);
 		}
-	}
+
+        [TestMethod]
+        public void ScheduleMaster_KnowsLeagues()
+        {
+            var result = Sut.GetLeagues();
+            Assert.IsTrue(result.Any());
+			result.ForEach(x => Console.WriteLine(x));
+        }
+    }
 }
