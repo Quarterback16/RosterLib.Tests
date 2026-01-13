@@ -29,7 +29,7 @@ namespace RosterLib.Tests
                 outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
 
             Console.WriteLine(
-                    $"Downloading gamebooks to {outputFolder}");
+                    $"Downloading Week {WeekToDownload} gamebooks to {outputFolder}");
             Sut = new GamebookGetterViaGameId(
                 new Downloader(
                     outputFolder),
