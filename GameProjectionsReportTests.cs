@@ -32,11 +32,12 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TestSingleGameProjectionsReport()
 		{
-			var cut = new NFLGame("2025:01-A");
+			var cut = new NFLGame("2025:21-A");
 			Assert.IsNotNull(cut);
-			cut.WriteProjection(
+			var result = cut.WriteProjection(
 				mi: new MarkdownInjector(
 					FolderHelper.GetObsidianNflStemFolder()));
+			Console.WriteLine(result);
 		}
 	}
 }

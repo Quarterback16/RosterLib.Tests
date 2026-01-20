@@ -6,7 +6,7 @@
         [TestMethod]
         public void TestNFLOutputMetric()
         {
-            var t = new NflTeam("PE")
+            var t = new NflTeam("NE")
             {
                 Season = "2025"
             };
@@ -25,6 +25,7 @@
                 new DateTime(2025, 7, 21, 0, 0, 0, DateTimeKind.Unspecified ));
             Assert.IsFalse(
                 string.IsNullOrEmpty(sp));
+            Console.WriteLine(sp);
         }
 
         [TestMethod]
