@@ -86,5 +86,20 @@
             Console.WriteLine($"hTDR: {g.ProjectedHomeTdr}");
         }
 
+        [TestMethod]
+        public void YahooGeneratorShouldOnlyGenerateForRegSeasonGames()
+        {
+            var sut = new YahooMasterGenerator(
+                fullSeason: false,
+                timekeeper: new FakeTimeKeeper(
+                    season: "2025",
+                    week: "20"));
+
+            sut.RenderAsHtml();
+
+
+
+        }
+
     }
 }
