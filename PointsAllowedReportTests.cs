@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace RosterLib.Tests
 {
@@ -25,6 +26,7 @@ namespace RosterLib.Tests
 			//  need to do this in Playoffs as well
 			var tk = new TimeKeeper(clock:null);
 			var nextWeek = tk.CurrentWeek(DateTime.Now) + 1;
+			Debug.WriteLine("Generating Points Allowed for Next week {0}", nextWeek);
 			var sut = new PointsAllowedReport(
 				new FakeTimeKeeper(
 					season: tk.CurrentSeason(),
