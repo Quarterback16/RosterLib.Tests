@@ -32,6 +32,39 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
+		public void TeamRankerRanksTeams()
+		{
+			_sut?.ForceReRank = true;
+			var when = new DateTime(
+					2026, 2, 4,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+
+			var result = _sut?.RankTeams(
+				when);
+
+			Assert.IsNotNull(result);
+		}
+
+		[TestMethod]
+		public void TeamRankerCanTally_NE()
+		{
+			_sut?.ForceReRank = true;
+			var when = new DateTime(
+					2026, 2, 4,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+
+			_sut?.TallyTeam(
+				new List<NflTeam>(),
+				"2025",
+				when,
+				"NE");
+
+			Assert.IsNotNull(when);
+		}
+
+		[TestMethod]
 		public void TeamRankerReturnsMetricsContext()
 		{
 			_sut?.ForceReRank = false;
