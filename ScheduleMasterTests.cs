@@ -11,10 +11,38 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Setup()
 		{
+			var jsonFolder = FolderHelper.JsonFolder();
 			Sut = new ScheduleMaster(
-                "c://users//quart//Dropbox//json");
+				jsonFolder);
 
-        }
+		}
+
+		[TestMethod]
+		public void ScheduleMaster_CanLoad_NRL_JsonScheduleFile_Ok()
+		{
+			const int K_CurrentSeason = 2026;
+			var leagueCode = "NRL";
+			var nRoundsInLeague = 27;
+			var cut = new ScheduleMaster();
+			Assert.IsTrue(
+				cut.HasSeason(
+					leagueCode,
+					K_CurrentSeason));
+			var nRounds = cut.Rounds(
+				leagueCode,
+				K_CurrentSeason);
+			Assert.AreEqual(
+				nRoundsInLeague,
+				nRounds);
+			Console.WriteLine(
+				$"League:{leagueCode} has {nRounds} rounds in {K_CurrentSeason}");
+			var nGames = cut.Games(leagueCode, K_CurrentSeason);
+			Assert.AreEqual(
+				204,  // total games in 2026 NRL season
+				nGames);
+			Console.WriteLine(
+				$"League:{leagueCode} has {nGames} games in {K_CurrentSeason}");
+		}
 
 		[TestMethod]
 		public void ScheduleMaster_Instantiates_Ok()
@@ -22,14 +50,14 @@ namespace RosterLib.Tests
 			Assert.IsNotNull(Sut);
 		}
 
-        [TestMethod]
-		[ExpectedException(typeof(System.IO.DirectoryNotFoundException))]
-        public void ScheduleMaster_Instantiates_Ok_WithPath()
-        {
-            new ScheduleMaster("nowhere");
-        }
+		[TestMethod]
+		[ExpectedException(typeof(DirectoryNotFoundException))]
+		public void ScheduleMaster_Instantiates_Ok_WithPath()
+		{
+			new ScheduleMaster("nowhere");
+		}
 
-        [TestMethod]
+		[TestMethod]
 		public void ScheduleMaster_KnowsYahooSchedule_Ok()
 		{
 			var game = Sut.GetGame(
@@ -89,12 +117,12 @@ namespace RosterLib.Tests
 			Assert.IsNull(game);
 		}
 
-        [TestMethod]
-        public void ScheduleMaster_KnowsLeagues()
-        {
-            var result = Sut.GetLeagues();
-            Assert.IsTrue(result.Any());
+		[TestMethod]
+		public void ScheduleMaster_KnowsLeagues()
+		{
+			var result = Sut.GetLeagues();
+			Assert.IsTrue(result.Any());
 			result.ForEach(x => Console.WriteLine(x));
-        }
-    }
+		}
+	}
 }
