@@ -2,7 +2,6 @@
 using RosterLib.Implementations;
 using RosterLib.Models;
 using System.Data;
-using System.Text;
 
 namespace RosterLib.Tests
 {
@@ -33,9 +32,42 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
+		public void TeamRankerRanksTeams()
+		{
+			_sut?.ForceReRank = true;
+			var when = new DateTime(
+					2026, 2, 4,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+
+			var result = _sut?.RankTeams(
+				when);
+
+			Assert.IsNotNull(result);
+		}
+
+		[TestMethod]
+		public void TeamRankerCanTally_NE()
+		{
+			_sut?.ForceReRank = true;
+			var when = new DateTime(
+					2026, 2, 4,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+
+			_sut?.TallyTeam(
+				new List<NflTeam>(),
+				"2025",
+				when,
+				"NE");
+
+			Assert.IsNotNull(when);
+		}
+
+		[TestMethod]
 		public void TeamRankerReturnsMetricsContext()
 		{
-			_sut.ForceReRank = false;
+			_sut?.ForceReRank = false;
 			var when = new DateTime(
 					2025, 07, 21,
 					0, 0, 0,
@@ -77,7 +109,7 @@ namespace RosterLib.Tests
 
 		}
 
-		private void DoRatingsSummary(MetricsContext metricsContext)
+		private static void DoRatingsSummary(MetricsContext metricsContext)
 		{
 			var summary = MetricsContextHelper.RankingSummary(
 				metricsContext);
@@ -91,7 +123,7 @@ namespace RosterLib.Tests
 
 		}	
 
-		private string TeamPageFileName(
+		private static string TeamPageFileName(
 			string teamCode) => 
 
 			 $"{Utility.CurrentSeason()}//Teams//{teamCode}.md";
