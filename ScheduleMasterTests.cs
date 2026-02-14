@@ -90,6 +90,21 @@ namespace RosterLib.Tests
 		}
 
         [TestMethod]
+        public void ScheduleMaster_KnowsRetroOpponent_ofCommanders_1998_02()
+        {
+            var opponent = Sut.OpponentOf(
+                team: "Commanders",
+                leagueCode: "RET",
+                season: 1998,
+                round: 02);
+            Assert.IsNotNull(opponent);
+            Assert.AreEqual("Wonders", opponent);
+            Assert.AreEqual("AW", CodeHelper.CodeFor("RET", opponent));
+
+            Console.WriteLine(opponent);
+        }
+
+        [TestMethod]
         public void ScheduleMaster_KnowsLeagues()
         {
             var result = Sut.GetLeagues();
