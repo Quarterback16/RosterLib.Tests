@@ -14,7 +14,6 @@ namespace RosterLib.Tests
 			var jsonFolder = FolderHelper.JsonFolder();
 			Sut = new ScheduleMaster(
 				jsonFolder);
-
 		}
 
 		[TestMethod]
@@ -124,12 +123,13 @@ namespace RosterLib.Tests
                 team: "Commanders",
                 leagueCode: "RET",
                 season: 1998,
-                round: 02);
+                round: 2);
             Assert.IsNotNull(opponent);
             Assert.AreEqual("Wonders", opponent);
             Assert.AreEqual("AW", CodeHelper.CodeFor("RET", opponent));
 
             Console.WriteLine(opponent);
+            Console.WriteLine(Sut.Diagnostic);
         }
 
         [TestMethod]
