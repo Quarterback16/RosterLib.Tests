@@ -139,5 +139,24 @@ namespace RosterLib.Tests
             Assert.IsTrue(result.Any());
 			result.ForEach(x => Console.WriteLine(x));
 		}
-	}
+
+        [TestMethod]
+        public void ScheduleMaster_CanGameByDate_Ok()
+        {
+            var game = Sut.GetGame(
+                team: "Commanders",
+				whichDay: new DateTime(2026, 2, 19),
+                leagueCode: "RET",
+                season: 1998);
+            Assert.IsNotNull(game);
+            Assert.AreNotEqual("??", game.AwayTeam, "No Away team");
+            Assert.AreNotEqual("??", game.HomeTeam, "No Home team");
+            Console.WriteLine(game);
+            Console.WriteLine(game.OpponentOf("Commanders"));
+            Console.WriteLine(
+                CodeHelper.CodeFor(
+                    "RET",
+                    game.OpponentOf("CC")));
+        }
+    }
 }
