@@ -6,7 +6,7 @@ namespace RosterLib.Tests
 	[TestClass]
 	public class ScheduleMasterTests
 	{
-		public ScheduleMaster Sut { get; set; }
+		public ScheduleMaster? Sut { get; set; }
 
 		[TestInitialize]
 		public void Setup()
@@ -116,47 +116,47 @@ namespace RosterLib.Tests
 			Assert.IsNull(game);
 		}
 
-        [TestMethod]
-        public void ScheduleMaster_KnowsRetroOpponent_ofCommanders_1998_02()
-        {
-            var opponent = Sut.OpponentOf(
-                team: "Commanders",
-                leagueCode: "RET",
-                season: 1998,
-                round: 2);
-            Assert.IsNotNull(opponent);
-            Assert.AreEqual("Wonders", opponent);
-            Assert.AreEqual("AW", CodeHelper.CodeFor("RET", opponent));
+		[TestMethod]
+		public void ScheduleMaster_KnowsRetroOpponent_ofCommanders_1998_02()
+		{
+			var opponent = Sut.OpponentOf(
+				team: "Commanders",
+				leagueCode: "RET",
+				season: 1998,
+				round: 2);
+			Assert.IsNotNull(opponent);
+			Assert.AreEqual("Wonders", opponent);
+			Assert.AreEqual("AW", CodeHelper.CodeFor("RET", opponent));
 
-            Console.WriteLine(opponent);
-            Console.WriteLine(Sut.Diagnostic);
-        }
+			Console.WriteLine(opponent);
+//			Console.WriteLine(Sut.Diagnostic);
+		}
 
-        [TestMethod]
-        public void ScheduleMaster_KnowsLeagues()
-        {
-            var result = Sut.GetLeagues();
-            Assert.IsTrue(result.Any());
+		[TestMethod]
+		public void ScheduleMaster_KnowsLeagues()
+		{
+			var result = Sut.GetLeagues();
+			Assert.IsTrue(result.Any());
 			result.ForEach(x => Console.WriteLine(x));
 		}
 
-        [TestMethod]
-        public void ScheduleMaster_CanGameByDate_Ok()
-        {
-            var game = Sut.GetGame(
-                team: "Commanders",
+		[TestMethod]
+		public void ScheduleMaster_CanGameByDate_Ok()
+		{
+			var game = Sut.GetGame(
+				team: "Commanders",
 				whichDay: new DateTime(2026, 2, 19),
-                leagueCode: "RET",
-                season: 1998);
-            Assert.IsNotNull(game);
-            Assert.AreNotEqual("??", game.AwayTeam, "No Away team");
-            Assert.AreNotEqual("??", game.HomeTeam, "No Home team");
-            Console.WriteLine(game);
-            Console.WriteLine(game.OpponentOf("Commanders"));
-            Console.WriteLine(
-                CodeHelper.CodeFor(
-                    "RET",
-                    game.OpponentOf("CC")));
-        }
-    }
+				leagueCode: "RET",
+				season: 1998);
+			Assert.IsNotNull(game);
+			Assert.AreNotEqual("??", game.AwayTeam, "No Away team");
+			Assert.AreNotEqual("??", game.HomeTeam, "No Home team");
+			Console.WriteLine(game);
+			Console.WriteLine(game.OpponentOf("Commanders"));
+			Console.WriteLine(
+				CodeHelper.CodeFor(
+					"RET",
+					game.OpponentOf("CC")));
+		}
+	}
 }
