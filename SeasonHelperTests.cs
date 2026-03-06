@@ -16,5 +16,12 @@ namespace RosterLib.Tests
                 season: "2025");
             Assert.AreEqual(21, result);
         }
+
+        [TestMethod]
+        public void SeasonHelper_KnowsTheTeamList()
+        {
+            var result = SeasonHelper.TeamCodeList("2026");
+            Assert.IsTrue(result.Length > 0);
+        }
     }
 }
