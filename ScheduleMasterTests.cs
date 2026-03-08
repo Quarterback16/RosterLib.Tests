@@ -129,7 +129,7 @@ namespace RosterLib.Tests
 			Assert.AreEqual("AW", CodeHelper.CodeFor("RET", opponent));
 
 			Console.WriteLine(opponent);
-//			Console.WriteLine(Sut.Diagnostic);
+			Console.WriteLine(Sut.Diagnostic);
 		}
 
 		[TestMethod]
@@ -157,6 +157,33 @@ namespace RosterLib.Tests
 				CodeHelper.CodeFor(
 					"RET",
 					game.OpponentOf("CC")));
+		}
+
+		[TestMethod]
+		public void ScheduleMaster_CanLoad_MLB_JsonScheduleFile_Ok()
+		{
+			const int K_CurrentSeason = 2026;
+			var leagueCode = "MLB";
+			var nRoundsInLeague = 27;
+			var cut = new ScheduleMaster();
+			Assert.IsTrue(
+				cut.HasSeason(
+					leagueCode,
+					K_CurrentSeason));
+			var nRounds = cut.Rounds(
+				leagueCode,
+				K_CurrentSeason);
+			Assert.AreEqual(
+				nRoundsInLeague,
+				nRounds);
+			Console.WriteLine(
+				$"League:{leagueCode} has {nRounds} rounds in {K_CurrentSeason}");
+			var nGames = cut.Games(leagueCode, K_CurrentSeason);
+			Assert.AreEqual(
+				2430,  // total games in 2026 MLB season
+				nGames);
+			Console.WriteLine(
+				$"League:{leagueCode} has {nGames} games in {K_CurrentSeason}");
 		}
 	}
 }
