@@ -1,6 +1,5 @@
 ﻿using RosterLib.Helpers;
 using RosterLib.Implementations;
-using RosterLib.Interfaces;
 using RosterLib.Services;
 using System.Data;
 using System.Text;
@@ -324,17 +323,17 @@ namespace RosterLib.Tests
 				weekMasterIn: null);
 			cut.Season = "2025";
 			cut.Week = 18;
-            cut.WeeksToGoBack = 17;
+			cut.WeeksToGoBack = 17;
 
-            var dt = new DataTable();
-            cut.DefinePlayerCsvColumns(dt);
-            var dr = dt.NewRow();
-            var result = cut.AddWeeklyFp(
+			var dt = new DataTable();
+			cut.DefinePlayerCsvColumns(dt);
+			var dr = dt.NewRow();
+			var result = cut.AddWeeklyFp(
 				new NFLPlayer("MCCACH03"),
 				dr,
 				new YahooStatService());
 			Assert.IsTrue(
 				result[17]>0M);
-        }
-    }
+		}
+	}
 }

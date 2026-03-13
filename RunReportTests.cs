@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-
-namespace RosterLib.Tests
+﻿namespace RosterLib.Tests
 {
     [TestClass]
     public class RunReportTests
