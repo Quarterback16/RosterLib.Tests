@@ -39,9 +39,7 @@ namespace RosterLib.Tests
 				new DoozyService(
 					timeKeeper.CurrentSeason(),
 					ConfigHelper.JsonFolder()),
-				new ContractYearService(
-					timeKeeper.CurrentSeason(),
-					ConfigHelper.JsonFolder()),
+				new ContractYearService(),
 				new ProjectionService(
 					new DbfPlayerGameMetricsDao(),
 					new DataLibrarian(
@@ -74,9 +72,7 @@ namespace RosterLib.Tests
 				new DoozyService(
 					timeKeeper.CurrentSeason(),
 					ConfigHelper.JsonFolder()),
-				new ContractYearService(
-					timeKeeper.CurrentSeason(),
-					ConfigHelper.JsonFolder()),
+				new ContractYearService(),
 				new ProjectionService(
 					new DbfPlayerGameMetricsDao(),
 					new DataLibrarian(
