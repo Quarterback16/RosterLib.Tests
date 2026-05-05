@@ -15,7 +15,7 @@
         [TestMethod]
         public void TestDoBalanceReportJobAnyYear()
         {
-            var tk = new FakeTimeKeeper("2026");
+            var tk = new FakeTimeKeeper("2026");  // for previous year
             var sut = new BalanceReport(tk);
             Assert.IsNotNull(sut);
             sut.Render(mdOnly: false);
