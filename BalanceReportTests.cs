@@ -18,7 +18,8 @@
             var tk = new FakeTimeKeeper("2026");
             var sut = new BalanceReport(tk);
             Assert.IsNotNull(sut);
-            sut.Render(mdOnly: true);
+            sut.Render(mdOnly: false);
+            Console.WriteLine($"file sent to {sut.OutputFilename()}");
         }
 
     }
