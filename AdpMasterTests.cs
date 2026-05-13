@@ -78,6 +78,21 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
+		public void AdpHelper_CanDoFullList_2026()
+		{
+			var sut = new AdpMaster(2026);
+				
+			sut.Load();
+
+			var md = AdpHelper.FullAdpToMarkDown(sut);
+
+			Assert.IsTrue(
+				md.Length > 0,
+				"Markdown should not be empty");
+			Console.WriteLine(md);
+		}
+
+		[TestMethod]
 		public void AdpHelper_CanDoDraftRoundNumbering()
 		{
 			var rd = AdpHelper.AsDraftRound(
@@ -109,7 +124,7 @@ namespace RosterLib.Tests
 		public void AdpMasterGet_ForUnknownPlayer_ReturnsEmptyString()
 		{
 			_sut?.Load();
-			var adp = _sut.GetAdp("Steve Colonna");
+			var adp = _sut?.GetAdp("Steve Colonna");
 			Assert.AreEqual(string.Empty, adp);
 		}
 
@@ -117,7 +132,7 @@ namespace RosterLib.Tests
 		public void AdpMasterGet_WithoutLoad_PerformsImplicitLoad()
 		{
 			var adp = _sut?.GetAdp("Travis Kelce");
-			Assert.IsTrue(adp == "79" || adp == "");
+			Assert.IsTrue(adp == "69" || adp == "");
 			Console.WriteLine($"Travis Kelce is #{adp}");
 		}
 
@@ -125,8 +140,8 @@ namespace RosterLib.Tests
 		public void AdpMasterGet_ForSaquon_Returns_3()
 		{
 			_sut?.Load();
-			var adp = _sut.GetAdp("Saquon Barkley");
-			Assert.IsTrue(adp == "3" || adp == "");
+			var adp = _sut?.GetAdp("Saquon Barkley");
+			Assert.IsTrue(adp == "2" || adp == "");
 			Console.WriteLine($"Saquon Barkley is #{adp}");
 		}
 
@@ -144,8 +159,8 @@ namespace RosterLib.Tests
 		public void AdpMasterGet_ForCMC_Returns_11()
 		{
 			_sut?.Load();
-			var adp = _sut.GetAdp("Christian McCaffrey");
-			Assert.IsTrue(adp == "" || adp == "11");
+			var adp = _sut?.GetAdp("Christian McCaffrey");
+			Assert.IsTrue(adp == "" || adp == "12");
 		}
 
 		[TestMethod]
@@ -154,7 +169,7 @@ namespace RosterLib.Tests
 			_sut?.Load();
 			var adp = _sut?.GetAdpRank("Brian Robinson");
 			Console.WriteLine($"Brian Robinson is #{adp}");
-			Assert.IsTrue(adp == 85 || adp == 0);
+			Assert.IsTrue(adp == 80 || adp == 0);
 		}
 
 		[TestMethod]
@@ -162,7 +177,7 @@ namespace RosterLib.Tests
 		{
 			_sut?.Load();
 			var adp = _sut?.GetAdpRank("Tyreek Hill");
-			Assert.IsTrue(adp == 32 || adp == 0);
+			Assert.IsTrue(adp == 29 || adp == 0);
 		}
 
 		[TestMethod]
@@ -170,7 +185,7 @@ namespace RosterLib.Tests
 		{
 			_sut?.Load();
 			var adp = _sut?.GetAdpRank("Breece Hall");
-			Assert.IsTrue(adp == 30 || adp == 0);
+			Assert.IsTrue(adp == 32 || adp == 0);
 		}
 
 
@@ -182,6 +197,8 @@ namespace RosterLib.Tests
 				teamCount: 18,
 				rounds: 18);
 			Array.ForEach(result, e => Console.WriteLine(e));
+			if (result == null)
+				Assert.Fail("Result should not be null");
 			Assert.AreEqual(18, result[0]);
 			Assert.AreEqual(19, result[1]);
 		}
@@ -191,6 +208,8 @@ namespace RosterLib.Tests
 		{
 			var result = _sut?.PicksFor(14, 14, 14);
 			Array.ForEach(result, e => Console.WriteLine(e));
+			if (result == null)
+				Assert.Fail("Result should not be null");
 			Assert.AreEqual(14, result[0]);
 			Assert.AreEqual(15, result[1]);
 			Assert.AreEqual(42, result[2]);
