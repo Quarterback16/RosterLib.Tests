@@ -80,12 +80,59 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void AdpHelper_CanDoFullList_2026()
 		{
-			var sut = new AdpMaster(2026);
-				
+			var sut = new AdpMaster(2026);				
 			sut.Load();
 
-			var md = AdpHelper.FullAdpToMarkDown(sut);
+			var md = AdpHelper.FullAdpToMarkDown(
+				sut,
+				"AdpHelper_CanDoFullList_2026");
 
+			Assert.IsTrue(
+				md.Length > 0,
+				"Markdown should not be empty");
+			Console.WriteLine(md);
+		}
+
+		[TestMethod]
+		public void AdpHelper_CanListPositionRankings_QB_2026()
+		{
+			PosRanking("QB", 2026);
+		}
+
+		[TestMethod]
+		public void AdpHelper_CanListPositionRankings_RB_2026()
+		{
+			PosRanking("RB",2026);
+		}
+
+		[TestMethod]
+		public void AdpHelper_CanListPositionRankings_WR_2026()
+		{
+			PosRanking("WR", 2026);
+		}
+
+		[TestMethod]
+		public void AdpHelper_CanListPositionRankings_TE_2026()
+		{
+			PosRanking("TE", 2026);
+		}
+
+		[TestMethod]
+		public void AdpHelper_CanListPositionRankings_DST_2026()
+		{
+			PosRanking("DST", 2026);
+		}
+
+		private static void PosRanking(
+			string posOfInterest, 
+			int season)
+		{
+			var sut = new AdpMaster(season);
+			sut.Load();
+			var md = AdpHelper.PositionRankingsToMarkDown(
+				sut,
+				posOfInterest,
+				$"AdpHelper_CanListPositionRankings_{posOfInterest}_{season}");
 			Assert.IsTrue(
 				md.Length > 0,
 				"Markdown should not be empty");
