@@ -123,10 +123,10 @@ namespace RosterLib.Tests
 
 		}	
 
-		private static string TeamPageFileName(
+		private string TeamPageFileName(
 			string teamCode) => 
 
-			 $"{Utility.CurrentSeason()}//Teams//{teamCode}.md";
+			 $"{_sut?.TimeKeeper.CurrentSeason()}//Teams//{teamCode}.md";
 		
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using RosterLib.Helpers;
 using RosterLib.Implementations;
+using RosterLib.Interfaces;
 using RosterLib.Services;
 using System.Data;
 using System.Text;
@@ -10,13 +11,14 @@ namespace RosterLib.Tests
 	[TestClass]
 	public class PlayerCsvTests
 	{
-		public TimeKeeper? _tk;
+		public IKeepTheTime? _tk;
 		public PlayerCsv? _sut;
-
+		
 		[TestInitialize]
 		public void Setup()
 		{
-			_tk = new TimeKeeper(clock: null);
+//			_tk = new TimeKeeper(clock: null);
+			_tk = new FakeTimeKeeper("2025","20");
 			var adpCsvFile = ConfigHelper.AdpCsvFile(
 				season: _tk.CurrentSeason());
 			_sut = new PlayerCsv(
@@ -32,12 +34,14 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void PlayerCsvReportCreatesCsvFile()
 		{
-			var timeKeeper = new TimeKeeper(null);
+			var timeKeeper = new FakeTimeKeeper(
+				"2025",
+				"20");
 			var sut = new PlayerCsv(
 				timeKeeper,
 				new AdpMaster(2025),
 				new DoozyService(
-					timeKeeper.CurrentSeason(),
+					"2025",
 					ConfigHelper.JsonFolder()),
 				new ContractYearService(),
 				new ProjectionService(
