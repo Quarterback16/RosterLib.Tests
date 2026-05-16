@@ -27,7 +27,7 @@ namespace RosterLib.Tests
 			var result = _sut?.Load();
 			Assert.IsTrue(result > 0 || result == 0);
 			Console.WriteLine(
-				"Number of Players:{0}", 
+				"Number of Players:{0}",
 				result);
 		}
 
@@ -47,7 +47,7 @@ namespace RosterLib.Tests
 				_sut!,
 				"WR");
 			Assert.IsTrue(
-				md.Length > 0, 
+				md.Length > 0,
 				"Markdown should not be empty");
 			Console.WriteLine(md);
 		}
@@ -80,7 +80,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void AdpHelper_CanDoFullList_2026()
 		{
-			var sut = new AdpMaster(2026);				
+			var sut = new AdpMaster(2026);
 			sut.Load();
 
 			var md = AdpHelper.FullAdpToMarkDown(
@@ -102,7 +102,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void AdpHelper_CanListPositionRankings_RB_2026()
 		{
-			PosRanking("RB",2026);
+			PosRanking("RB", 2026);
 		}
 
 		[TestMethod]
@@ -124,7 +124,7 @@ namespace RosterLib.Tests
 		}
 
 		private static void PosRanking(
-			string posOfInterest, 
+			string posOfInterest,
 			int season)
 		{
 			var sut = new AdpMaster(season);
@@ -284,5 +284,10 @@ namespace RosterLib.Tests
 			Console.WriteLine($"{playerName} {result}");
 		}
 
+		[TestMethod]
+		public void AdpMaster_KnowsRankOfPositionRank()
+		{
+			Assert.AreEqual(6, AdpHelper.PosAdpRankFromString("QB6"));
+		}
 	}
 }
