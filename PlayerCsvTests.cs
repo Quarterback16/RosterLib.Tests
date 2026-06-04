@@ -35,13 +35,13 @@ namespace RosterLib.Tests
 		public void PlayerCsvReportCreatesCsvFile()
 		{
 			var timeKeeper = new FakeTimeKeeper(
-				"2025",
-				"20");
+				"2026",
+				"0");
 			var sut = new PlayerCsv(
 				timeKeeper,
-				new AdpMaster(2025),
+				new AdpMaster(2026),
 				new DoozyService(
-					"2025",
+					"2026",
 					ConfigHelper.JsonFolder()),
 				new ContractYearService(),
 				new ProjectionService(
