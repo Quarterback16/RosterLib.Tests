@@ -17,8 +17,7 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Setup()
 		{
-//			_tk = new TimeKeeper(clock: null);
-			_tk = new FakeTimeKeeper("2025","20");
+			_tk = new TimeKeeper(clock: null);
 			var adpCsvFile = ConfigHelper.AdpCsvFile(
 				season: _tk.CurrentSeason());
 			_sut = new PlayerCsv(
