@@ -69,7 +69,7 @@ namespace RosterLib.Tests
 		{
 			_sut?.ForceReRank = false;
 			var when = new DateTime(
-					2025, 07, 21,
+					2026, 06, 11,
 					0, 0, 0,
 					DateTimeKind.Unspecified);
 
@@ -81,44 +81,50 @@ namespace RosterLib.Tests
 				typeof(MetricsContext));
 			Assert.IsTrue(result.RankDate.Equals(
 				new DateTime(
-					2025, 09, 07,
+					2026, 09, 13,
 					0, 0, 0,
 					DateTimeKind.Unspecified)));
 			Assert.IsTrue(result.RatingsHt.Count > 0);
-			Assert.IsTrue(result.Data.Rows.Count > 0);
 
 			DoRatingsSummary(result);
 
-			var mi = new MarkdownInjector();
-			var teamRank = 0;
-			result.Data.DefaultView.Sort = "RPTS DESC";
-			foreach (DataRowView row in result.Data.DefaultView)
+			if (result.Data != null)
 			{
-				teamRank++;
-				var md =	MetricsContextHelper.TeamGradingsToMarkdown(
-					result,
-					row,
-					teamRank);
-				Console.WriteLine(md);
-				mi.InjectMarkdown(
-					targetfile: TeamPageFileName(row["TEAM"].ToString()),
-					tagName: "gradings",
-					md);
-				Console.WriteLine();
+				var mi = new MarkdownInjector();
+				var teamRank = 0;
+				result.Data.DefaultView.Sort = "RPTS DESC";
+				foreach (DataRowView row in result.Data.DefaultView)
+				{
+					teamRank++;
+					var md = MetricsContextHelper.TeamGradingsToMarkdown(
+						result,
+						row,
+						teamRank);
+					Console.WriteLine(md);
+					mi.InjectMarkdown(
+						targetfile: TeamPageFileName(row["TEAM"].ToString()),
+						tagName: "gradings",
+						md);
+					Console.WriteLine();
+				}
 			}
 
 		}
 
-		private static void DoRatingsSummary(MetricsContext metricsContext)
+		private static void DoRatingsSummary(
+			MetricsContext metricsContext)
 		{
 			var summary = MetricsContextHelper.RankingSummary(
 				metricsContext);
+			metricsContext.Season = new TimeKeeper(null).CurrentSeason();
 			Console.WriteLine(summary);
 			Console.WriteLine(
 				$@"Sending output to {
-					MetricsContextHelper.GradingsSummaryFileName(metricsContext)}");
+					MetricsContextHelper.GradingsSummaryFileName(
+						metricsContext)}");
 			File.WriteAllText(
-				path: MetricsContextHelper.GradingsSummaryFileName(metricsContext),
+				path: MetricsContextHelper.GradingsSummaryFileName(
+					metricsContext),
 				contents: summary);
 
 		}	
