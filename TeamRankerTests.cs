@@ -73,31 +73,31 @@ namespace RosterLib.Tests
 					0, 0, 0,
 					DateTimeKind.Unspecified);
 
-			var result = _sut?.RankTeams(
+			var rankings = _sut?.RankTeams(
 				when);
 
 			Assert.IsInstanceOfType(
-				result, 
+				rankings, 
 				typeof(MetricsContext));
-			Assert.IsTrue(result.RankDate.Equals(
+			Assert.IsTrue(rankings.RankDate.Equals(
 				new DateTime(
 					2026, 09, 13,
 					0, 0, 0,
 					DateTimeKind.Unspecified)));
-			Assert.IsTrue(result.RatingsHt.Count > 0);
+			Assert.IsTrue(rankings.RatingsHt.Count > 0);
 
-			DoRatingsSummary(result);
+			DoRatingsSummary(rankings);
 
-			if (result.Data != null)
+			if (rankings.Data != null)
 			{
 				var mi = new MarkdownInjector();
 				var teamRank = 0;
-				result.Data.DefaultView.Sort = "RPTS DESC";
-				foreach (DataRowView row in result.Data.DefaultView)
+				rankings.Data.DefaultView.Sort = "RPTS DESC";
+				foreach (DataRowView row in rankings.Data.DefaultView)
 				{
 					teamRank++;
 					var md = MetricsContextHelper.TeamGradingsToMarkdown(
-						result,
+						rankings,
 						row,
 						teamRank);
 					Console.WriteLine(md);
