@@ -133,6 +133,50 @@ namespace RosterLib.Tests
 			string teamCode) => 
 
 			 $"{_sut?.TimeKeeper.CurrentSeason()}//Teams//{teamCode}.md";
-		
+
+		[TestMethod]
+		public void UnitRankingsFromMetricsContextToMarkdown()
+		{
+			_sut?.ForceReRank = false;
+			var when = new DateTime(
+					2026, 06, 11,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+
+			var rankings = _sut?.RankTeams(
+				when);
+
+			var unitArray = new string[] 
+			{ 
+				"PO", "RO", "PP", "PR", "RD", "PD" 
+			};
+
+			foreach (var unit in unitArray)
+			{
+				SendUnitGradingsToObsidian(
+					unit,
+					rankings);
+			}
+
+		}
+
+		private static void SendUnitGradingsToObsidian(
+			string unit,
+			MetricsContext? rankings)
+		{
+			var md = MetricsContextHelper.UnitRankingsToMarkDown(
+				unit: unit,
+				metricsContext: rankings);
+
+			Assert.IsNotNull(md);
+			Console.WriteLine(md);
+			Console.WriteLine(
+				$@"Sending output to {MetricsContextHelper.UnitGradingsFileName(
+						unit, rankings)}");
+			File.WriteAllText(
+				path: MetricsContextHelper.UnitGradingsFileName(
+					unit, rankings),
+				contents: md);
+		}
 	}
 }
