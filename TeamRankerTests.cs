@@ -146,10 +146,7 @@ namespace RosterLib.Tests
 			var rankings = _sut?.RankTeams(
 				when);
 
-			var unitArray = new string[] 
-			{ 
-				"PO", "RO", "PP", "PR", "RD", "PD" 
-			};
+			var unitArray = UnitRatingsHelper.UnitArray();
 
 			foreach (var unit in unitArray)
 			{
