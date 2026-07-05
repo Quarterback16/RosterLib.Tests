@@ -137,7 +137,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void UnitRankingsFromMetricsContextToMarkdown()
 		{
-			_sut?.ForceReRank = false;
+			_sut?.ForceReRank = true;
 			var when = new DateTime(
 					2026, 06, 11,
 					0, 0, 0,
