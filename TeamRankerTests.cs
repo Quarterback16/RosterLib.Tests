@@ -157,6 +157,23 @@ namespace RosterLib.Tests
 
 		}
 
+		[TestMethod]
+		public void POBreakdownsFromMetricsContextToMarkdown()
+		{
+			_sut?.ForceReRank = true;
+			var when = new DateTime(
+					2026, 06, 11,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+			_sut?.RankTeams(when);
+			var md = MetricsContextHelper.BreakdownsToMarkdown(
+				allContributions: _sut.AllContributions,
+				teamCode: "SF",
+				unit: "PO");
+
+			Assert.IsFalse(string.IsNullOrEmpty(md));
+		}
+
 		private static void SendUnitGradingsToObsidian(
 			string unit,
 			MetricsContext? rankings)
