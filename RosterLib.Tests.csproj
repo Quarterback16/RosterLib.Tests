@@ -24,4 +24,10 @@
     <ProjectReference Include="..\RosterLib\RosterLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="PlayerService-2.0">
+      <HintPath>..\..\..\Dropbox\Services\PlayerService-2.0.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
