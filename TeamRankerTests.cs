@@ -196,6 +196,25 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
+		public void RdBreakdownsFromMetricsContextToMarkdown()
+		{
+			if (_sut != null) _sut.ForceReRank = true;
+			var when = new DateTime(
+					2026, 06, 11,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+			_sut?.RankTeams(when);
+			var md = MetricsContextHelper.BreakdownsToMarkdown(
+				allContributions: _sut?.AllContributions,
+				teamCode: "SF",
+				unit: "RD",
+				season: _sut?.TimeKeeper.CurrentSeason());
+
+			Assert.IsFalse(string.IsNullOrEmpty(md));
+			Console.WriteLine(md);
+		}
+
+		[TestMethod]
 		public void AllBreakdownsToObsidian()
 		{
 			if (_sut != null) 
