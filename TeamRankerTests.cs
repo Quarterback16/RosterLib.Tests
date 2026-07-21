@@ -100,7 +100,8 @@ namespace RosterLib.Tests
 					var md = MetricsContextHelper.TeamGradingsToMarkdown(
 						rankings,
 						row,
-						teamRank);
+						teamRank,
+						"2026");
 					Console.WriteLine(md);
 					mi.InjectMarkdown(
 						targetfile: TeamPageFileName(row["TEAM"].ToString()),
