@@ -34,14 +34,14 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TeamRankerRanksTeams()
 		{
-			if (_sut != null) _sut.ForceReRank = true;
+			Assert.IsNotNull(_sut);
+			//if (_sut != null) _sut.ForceReRank = true;
 			var when = new DateTime(
-					2026, 2, 4,
+					2026, 7, 30,
 					0, 0, 0,
 					DateTimeKind.Unspecified);
 
-			var result = _sut?.RankTeams(
-				when);
+			var result = _sut.RankTeams(when);
 
 			Assert.IsNotNull(result);
 		}
@@ -68,23 +68,24 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TeamRankerReturnsMetricsContext()
 		{
-			if (_sut != null) _sut.ForceReRank = false;
-			var when = new DateTime(
-					2026, 06, 11,
-					0, 0, 0,
-					DateTimeKind.Unspecified);
+			Assert.IsNotNull(_sut);
 
 			var rankings = _sut?.RankTeams(
-				when);
+				new DateTime(
+					2026, 06, 30,
+					0, 0, 0,
+					DateTimeKind.Unspecified));
 
 			Assert.IsInstanceOfType(
 				rankings,
 				typeof(MetricsContext));
+
 			Assert.IsTrue(rankings.RankDate.Equals(
 				new DateTime(
 					2026, 09, 13,
 					0, 0, 0,
 					DateTimeKind.Unspecified)));
+
 			Assert.IsTrue(rankings.RatingsHt.Count > 0);
 
 			DoRatingsSummary(rankings);
@@ -138,14 +139,13 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void UnitRankingsFromMetricsContextToMarkdown()
 		{
-			if (_sut != null) _sut.ForceReRank = true;
-			var when = new DateTime(
-					2026, 06, 11,
-					0, 0, 0,
-					DateTimeKind.Unspecified);
+			Assert.IsNotNull(_sut);
 
-			var rankings = _sut?.RankTeams(
-				when);
+			var rankings = _sut.RankTeams(
+				new DateTime(
+					2026, 07, 30,
+					0, 0, 0,
+					DateTimeKind.Unspecified));
 
 			var unitArray = UnitRatingsHelper.UnitArray();
 
@@ -155,7 +155,6 @@ namespace RosterLib.Tests
 					unit,
 					rankings);
 			}
-
 		}
 
 		[TestMethod]
@@ -249,6 +248,24 @@ namespace RosterLib.Tests
 						md: md);
 				}
 			}
+		}
+
+		[TestMethod]
+		public void TeamRankerKnowsRankingsDate()
+		{
+			Assert.IsNotNull(_sut);
+			var when = new DateTime(
+					2026, 07, 31,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+			Assert.IsTrue(_sut.HaveAlreadyRated(when));
+		}
+
+		[TestMethod]
+		public void TeamRankerKnowsCurrentRankingsDate()
+		{
+			Assert.IsNotNull(_sut);
+			Console.WriteLine(_sut.CurrentRatingsDate());
 		}
 
 		private static void SendUnitGradingsToObsidian(
