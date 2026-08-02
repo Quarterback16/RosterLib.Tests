@@ -32,16 +32,16 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
-		public void TeamRankerRanksTeams()
+		public void TeamRankerRanksTeamsWhenForced()
 		{
 			Assert.IsNotNull(_sut);
-			//if (_sut != null) _sut.ForceReRank = true;
+			_sut.ForceReRank = true;
 			var when = new DateTime(
-					2026, 7, 30,
+					2026, 8, 02,
 					0, 0, 0,
 					DateTimeKind.Unspecified);
 
-			var result = _sut.RankTeams(when);
+			var result = _sut.RankTeams(when);  // and send breakdowns to Obsidian
 
 			Assert.IsNotNull(result);
 		}
@@ -72,7 +72,7 @@ namespace RosterLib.Tests
 
 			var rankings = _sut?.RankTeams(
 				new DateTime(
-					2026, 06, 30,
+					2026, 08, 02,
 					0, 0, 0,
 					DateTimeKind.Unspecified));
 
@@ -102,10 +102,12 @@ namespace RosterLib.Tests
 						rankings,
 						row,
 						teamRank,
-						"2026");
+						_sut?.TimeKeeper.CurrentSeason());
 					Console.WriteLine(md);
+					var targetFile = TeamPageFileName(row["TEAM"].ToString());
+					Console.WriteLine($"Injecting into {targetFile}");
 					mi.InjectMarkdown(
-						targetfile: TeamPageFileName(row["TEAM"].ToString()),
+						targetfile: targetFile,
 						tagName: "gradings",
 						md);
 					Console.WriteLine();
@@ -285,6 +287,21 @@ namespace RosterLib.Tests
 				path: MetricsContextHelper.UnitGradingsFileName(
 					unit, rankings),
 				contents: md);
+		}
+
+		[TestMethod]
+		public void TeamRankerCanTallyTeam()
+		{
+			Assert.IsNotNull(_sut);
+			var when = new DateTime(
+					2026, 08, 02,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+			_sut.TallyTeam(
+				new List<NflTeam>(),
+				"2026",
+				when,
+				"SS");            
 		}
 
 		private static void SendBreakDownToObsidian(
