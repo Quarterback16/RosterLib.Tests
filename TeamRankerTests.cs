@@ -162,9 +162,10 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void POBreakdownsFromMetricsContextToMarkdown()
 		{
-			if (_sut != null) _sut.ForceReRank = true;
+			Assert.IsNotNull(_sut); 
+			_sut.ForceReRank = true;
 			var when = new DateTime(
-					2026, 06, 11,
+					2026, 08, 02,
 					0, 0, 0,
 					DateTimeKind.Unspecified);
 			_sut?.RankTeams(when);
@@ -172,6 +173,26 @@ namespace RosterLib.Tests
 				allContributions: _sut?.AllContributions,
 				teamCode: "SF",
 				unit: "PO",
+				season: _sut?.TimeKeeper.CurrentSeason());
+
+			Assert.IsFalse(string.IsNullOrEmpty(md));
+			Console.WriteLine(md);
+		}
+
+		[TestMethod]
+		public void ROBreakdownsFromMetricsContextToMarkdown()
+		{
+			Assert.IsNotNull(_sut); 
+			_sut.ForceReRank = true;
+			var when = new DateTime(
+					2026, 08, 02,
+					0, 0, 0,
+					DateTimeKind.Unspecified);
+			_sut.RankTeams(when);
+			var md = MetricsContextHelper.BreakdownsToMarkdown(
+				allContributions: _sut?.AllContributions,
+				teamCode: "SF",
+				unit: "RO",
 				season: _sut?.TimeKeeper.CurrentSeason());
 
 			Assert.IsFalse(string.IsNullOrEmpty(md));
