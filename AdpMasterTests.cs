@@ -10,7 +10,7 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Setup()
 		{
-			_sut = new AdpMaster(2025);
+			_sut = new AdpMaster(2026);
 		}
 
 		[TestMethod]
@@ -123,7 +123,36 @@ namespace RosterLib.Tests
 			PosRanking("DST", 2026);
 		}
 
-		private static void PosRanking(
+		[TestMethod]
+		public void WriteAllPositionRankingsToObsidian()
+		{
+			Assert.IsNotNull(_sut, "_sut should not be null");
+
+			var rootPath = $"{FolderHelper.GetObsidianNflStemFolder()}{_sut.Season}\\ADP\\";
+
+			var dict = new Dictionary<string, string>
+			{
+				{"QB", $"{rootPath}ADP QB Rankings {_sut.Season}.md" },
+				{"RB", $"{rootPath}ADP RB Rankings {_sut.Season}.md" },
+				{"WR", $"{rootPath}ADP WR Rankings {_sut.Season}.md" },
+				{"TE", $"{rootPath}ADP TE Rankings {_sut.Season}.md" },
+				{"DST", $"{rootPath}ADP DST Rankings {_sut.Season}.md" }
+			};
+			foreach (KeyValuePair<string, string> pair in dict)
+			{
+				var md = PosRanking(pair.Key, Int32.Parse(_sut.Season));
+				if (FileHelper.WriteStringToFile(pair.Value, md))
+				{
+					Console.WriteLine($"{pair.Key} written to {pair.Value}");
+				}
+				else
+				{
+					Assert.Fail($"Failed to write to file: {pair.Value}");
+				}
+			}
+		}
+
+		private static string PosRanking(
 			string posOfInterest,
 			int season)
 		{
@@ -137,6 +166,7 @@ namespace RosterLib.Tests
 				md.Length > 0,
 				"Markdown should not be empty");
 			Console.WriteLine(md);
+			return md.ToString();
 		}
 
 		[TestMethod]
@@ -153,7 +183,7 @@ namespace RosterLib.Tests
 		public void AdpMasterCanTakeOutNoise()
 		{
 			_sut?.Load();
-			var result = _sut?.TakeOutNoise("Kenneth Walker III");
+			var result = AdpMaster.TakeOutNoise("Kenneth Walker III");
 			Console.WriteLine(result);
 			Assert.AreEqual("Kenneth Walker", result);
 		}
@@ -162,7 +192,7 @@ namespace RosterLib.Tests
 		public void AdpMasterCanTakeOutSrNoise()
 		{
 			_sut?.Load();
-			var result = _sut?.TakeOutNoise("Deebo Samuel Sr.");
+			var result = AdpMaster.TakeOutNoise("Deebo Samuel Sr.");
 			Console.WriteLine(result);
 			Assert.AreEqual("Deebo Samuel", result);
 		}
