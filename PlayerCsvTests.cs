@@ -20,6 +20,7 @@ namespace RosterLib.Tests
 			_tk = new TimeKeeper(clock: null);
 			var adpCsvFile = ConfigHelper.AdpCsvFile(
 				season: _tk.CurrentSeason());
+            Console.WriteLine($"Using ADP data from {adpCsvFile}");
 			_sut = new PlayerCsv(
 				timekeeper: _tk,
 				adpMaster: new AdpMaster(adpCsvFile),
@@ -315,6 +316,40 @@ namespace RosterLib.Tests
 			Assert.IsFalse(string.IsNullOrEmpty(output));
 		}
 
+		[TestMethod]
+		public void TestAllPositionsToObsidian()
+		{
+			Assert.IsNotNull(_sut);
+			var positions = PositionHelper.PositionsBarKicker();
+
+			foreach (var pos in positions)
+			{
+				var md = _sut?.StartersProjections(
+					pos.PositionCode,
+					pos.PositionCategory,
+					"TestAllPositionsToObsidian");
+				var outputFile = StarterFile(
+					pos.PositionCode, 
+					_sut.Season);
+				FileHelper.WriteStringToFile(
+					outputFile,
+					md);
+				Console.WriteLine($"Starters Projections written to {outputFile}");
+			}
+		}
+
+		private static string StarterFile(
+			string positionCode, 
+			string season) =>
+		
+			new StringBuilder()
+				.Append(FolderHelper.GetObsidianNflStemFolder())
+				.Append(season)
+				.Append(" Starting Players at ")
+				.Append(positionCode)
+				.Append(".md")
+			.ToString();
+		
 		[TestMethod]
 		public void TestFP18Missing()
 		{

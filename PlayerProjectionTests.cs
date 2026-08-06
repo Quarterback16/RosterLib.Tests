@@ -76,12 +76,12 @@ namespace RosterLib.Tests
 		public void PlayerProjectionInjectsIntoObsidian()
 		{
 			var player = new NFLPlayer(
-				playerId: "ALLEJO02");
+				playerId: "TAYLJO03");
 			var md = PlayerProjectionHelper.InjectProjection(
-				player,
-				"2025",
-				4,
-				new MarkdownInjector(
+				player: player,
+				season: "2026",
+				week: 0,
+				injector: new MarkdownInjector(
 					FolderHelper.PlayerMarkdownFolder()));
 			Assert.IsNotNull(player);
 			Console.WriteLine(md);
