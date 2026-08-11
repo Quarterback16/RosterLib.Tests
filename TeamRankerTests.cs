@@ -1,6 +1,7 @@
 ﻿using RosterLib.Helpers;
 using RosterLib.Implementations;
 using RosterLib.Models;
+using System.Collections;
 using System.Data;
 
 namespace RosterLib.Tests
@@ -66,13 +67,13 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
-		public void TeamRankerReturnsMetricsContext()
+		public void TeamRankerUpdatesAndWritesGradings()
 		{
 			Assert.IsNotNull(_sut);
-
+			_sut.ForceReRank = true;
 			var rankings = _sut?.RankTeams(
 				new DateTime(
-					2026, 08, 02,
+					2026, 08, 11,
 					0, 0, 0,
 					DateTimeKind.Unspecified));
 
