@@ -1,4 +1,5 @@
-﻿using RosterLib.Helpers;
+﻿using InjectorMicroService;
+using RosterLib.Helpers;
 using RosterLib.Implementations;
 using System.Configuration;
 
@@ -130,7 +131,7 @@ namespace RosterLib.Tests
 			var mi = new MarkdownInjector(
 					FolderHelper.PlayerMarkdownFolder());
 			Assert.IsTrue(
-				mi.FileContainsTag(
+				mi.ContainsTag(
 					PlayerProjectionHelper.PlayerMarkdownFile(
 						new NFLPlayer("ALLEJO02")),
 					"projection-2025"));

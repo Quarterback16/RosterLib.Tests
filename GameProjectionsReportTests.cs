@@ -1,4 +1,5 @@
-﻿using RosterLib.Helpers;
+﻿using InjectorMicroService;
+using RosterLib.Helpers;
 using RosterLib.Implementations;
 
 namespace RosterLib.Tests
