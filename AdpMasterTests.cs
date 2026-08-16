@@ -241,12 +241,12 @@ namespace RosterLib.Tests
 		}
 
 		[TestMethod]
-		public void AdpRankGet_ForRobinsonNot4()
+		public void AdpRankGet_ForPlayerWorks()
 		{
 			_sut?.Load();
-			var adp = _sut?.GetAdpRank("Brian Robinson");
-			Console.WriteLine($"Brian Robinson is #{adp}");
-			Assert.IsTrue(adp == 80 || adp == 0);
+			var adp = _sut?.GetAdpRank("Matthew Stafford");
+			Console.WriteLine($"Matthew Stafford is #{adp}");
+			Assert.IsTrue(adp == 96 || adp == 0);
 		}
 
 		[TestMethod]
