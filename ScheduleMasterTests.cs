@@ -59,7 +59,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void ScheduleMaster_KnowsYahooSchedule_Ok()
 		{
-			var game = Sut.GetGame(
+			var game = Sut?.GetGame(
 				team: "7x7ers",
 				leagueCode: "YAH",
 				season: 2025,
@@ -78,7 +78,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void ScheduleMaster_KnowsYahooOpponent_of77()
 		{
-			var opponent = Sut.OpponentOf(
+			var opponent = Sut?.OpponentOf(
 				team: "7x7ers",
 				leagueCode: "YAH",
 				season: 2025,
@@ -93,7 +93,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void ScheduleMaster_KnowsYahooOpponent_of77_2025_02()
 		{
-			var opponent = Sut.OpponentOf(
+			var opponent = Sut?.OpponentOf(
 				team: "7x7ers",
 				leagueCode: "YAH",
 				season: 2025,
@@ -108,7 +108,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void ScheduleMaster_HandlesNoGame_Ok()
 		{
-			var game = Sut.GetGame(
+			var game = Sut?.GetGame(
 				team: "7x7ers",
 				leagueCode: "YAH",
 				season: 2023,
@@ -119,7 +119,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void ScheduleMaster_KnowsRetroOpponent_ofCommanders_1998_02()
 		{
-			var opponent = Sut.OpponentOf(
+			var opponent = Sut?.OpponentOf(
 				team: "Commanders",
 				leagueCode: "RET",
 				season: 1998,
@@ -129,21 +129,21 @@ namespace RosterLib.Tests
 			Assert.AreEqual("AW", CodeHelper.CodeFor("RET", opponent));
 
 			Console.WriteLine(opponent);
-			Console.WriteLine(Sut.Diagnostic);
+			Console.WriteLine(Sut?.Diagnostic);
 		}
 
 		[TestMethod]
 		public void ScheduleMaster_KnowsLeagues()
 		{
-			var result = Sut.GetLeagues();
+			var result = Sut?.GetLeagues();
 			Assert.IsTrue(result.Any());
-			result.ForEach(x => Console.WriteLine(x));
+			result?.ForEach(x => Console.WriteLine(x));
 		}
 
 		[TestMethod]
 		public void ScheduleMaster_CanGameByDate_Ok()
 		{
-			var game = Sut.GetGame(
+			var game = Sut?.GetGame(
 				team: "Commanders",
 				whichDay: new DateTime(2026, 2, 19),
 				leagueCode: "RET",

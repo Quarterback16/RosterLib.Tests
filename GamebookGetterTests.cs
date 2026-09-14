@@ -14,12 +14,13 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Init()
 		{
-			WeekToDownload = new TimeKeeper(clock: null)
+			var tk = new TimeKeeper(clock: null);
+			WeekToDownload = tk
 				.CurrentWeek()
 				.ToString();
 
 			Week = new NFLWeek(
-				seasonIn: "2025",
+				seasonIn: tk.CurrentSeason(),
 				weekIn: WeekToDownload);
 
 			string outputFolder;
@@ -46,7 +47,7 @@ namespace RosterLib.Tests
 		[TestMethod]
 		public void TestNewDownloadSinglePdf()
 		{
-			var result = Sut.Download(
+			var result = Sut?.Download(
 				"2024",
 				3,
 				"patriots",
