@@ -16,7 +16,7 @@ namespace RosterLib.Tests
 		{
 			var tk = new TimeKeeper(clock: null);
 			WeekToDownload = tk
-				.CurrentWeek()
+				.PreviousWeek()
 				.ToString();
 
 			Week = new NFLWeek(
@@ -48,10 +48,10 @@ namespace RosterLib.Tests
 		public void TestNewDownloadSinglePdf()
 		{
 			var result = Sut?.Download(
-				"2024",
-				3,
-				"patriots",
-				"jets");
+				"2026",
+				1,
+				"bills",
+				"texans");
 			Assert.IsTrue(result);
 		}
 
