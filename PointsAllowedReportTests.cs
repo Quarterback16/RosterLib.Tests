@@ -25,7 +25,7 @@ namespace RosterLib.Tests
 			//  using this current week (not played yet) to generate `Points-Allowed-lw.json`
 			//  need to do this in Playoffs as well
 			var tk = new TimeKeeper(clock:null);
-			var nextWeek = tk.CurrentWeek(DateTime.Now) + 1;
+			var nextWeek = tk.CurrentWeek(DateTime.Now);
 			Debug.WriteLine("Generating Points Allowed for Next week {0}", nextWeek);
 			var sut = new PointsAllowedReport(
 				new FakeTimeKeeper(

@@ -7,7 +7,7 @@ namespace RosterLib.Tests
 	[TestClass]
 	public class GamebookGetterTests
 	{
-		public string WeekToDownload { get; set; } = string.Empty;
+		public int WeekToDownload { get; set; }
 		public IGetGamebooks? Sut { get; set; }
 		public NFLWeek? Week { get; set; }
 
@@ -15,26 +15,32 @@ namespace RosterLib.Tests
 		public void Init()
 		{
 			var tk = new TimeKeeper(clock: null);
-			WeekToDownload = tk
-				.PreviousWeek()
-				.ToString();
+
+			if (DateTime.Now.DayOfWeek < DayOfWeek.Tuesday)
+				WeekToDownload = tk
+					.CurrentWeek();
+			else
+				WeekToDownload = Int32.Parse(
+					tk.PreviousWeek());
 
 			Week = new NFLWeek(
 				seasonIn: tk.CurrentSeason(),
 				weekIn: WeekToDownload);
 
-			string outputFolder;
-			if (Utility.HostName().ToUpper() == "MAHOMES")
-				outputFolder = $"c:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
-			else
-				outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload}\\";
+			Sut = new GamebookGetterViaGameId(
+				downloader: new Downloader(
+					outputFolder: SetOutputFolder()),
+				gs: new GameIdService());
+		}
 
+		private string SetOutputFolder()
+		{
+			var outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload:0#}\\";
+			if (Utility.HostName().ToUpper() == "MAHOMES")
+				outputFolder = $"c:\\tfl\\nfl\\gamebooks\\week {WeekToDownload:0#}\\";
 			Console.WriteLine(
 					$"Downloading Week {WeekToDownload} gamebooks to {outputFolder}");
-			Sut = new GamebookGetterViaGameId(
-				new Downloader(
-					outputFolder),
-				new GameIdService());
+			return outputFolder;
 		}
 
 		[TestMethod]
