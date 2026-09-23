@@ -81,11 +81,11 @@ namespace RosterLib.Tests
 			var opponent = Sut?.OpponentOf(
 				team: "7x7ers",
 				leagueCode: "YAH",
-				season: 2025,
+				season: 2026,
 				round: 03);
 			Assert.IsNotNull(opponent);
-			Assert.AreEqual("Finheads", opponent);
-			Assert.AreEqual("FH", CodeHelper.CodeFor("YAH", opponent));
+			Assert.AreEqual("SuperHawks", opponent);
+			Assert.AreEqual("SH", CodeHelper.CodeFor("YAH", opponent));
 
 			Console.WriteLine(opponent);
 		}
