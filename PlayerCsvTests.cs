@@ -136,7 +136,7 @@ namespace RosterLib.Tests
 				pgm.CalculateProjectedFantasyPoints(p);
 				totalPoints += p.Points;
 			}
-			System.Console.WriteLine(
+			Console.WriteLine(
 				$"{playerId} is projected for {totalPoints} FP");
 			Assert.IsTrue(p.Points < 400M);
 		}
@@ -328,30 +328,20 @@ namespace RosterLib.Tests
 					pos.PositionCode,
 					pos.PositionCategory,
 					"TestAllPositionsToObsidian");
-                Console.WriteLine(md);
+				Console.WriteLine(md);
 			}
 		}
 
-		private static string StarterFile(
-			string positionCode, 
-			string season) =>
-		
-			new StringBuilder()
-				.Append(FolderHelper.GetObsidianNflStemFolder())
-				.Append(season)
-				.Append("\\")
-				.Append(" Starting Players at ")
-				.Append(positionCode)
-			.ToString();
-		
 		[TestMethod]
 		public void TestFP18Missing()
 		{
-			var cut =  new RenderStatsToHtml(
-				weekMasterIn: null);
-			cut.Season = "2025";
-			cut.Week = 18;
-			cut.WeeksToGoBack = 17;
+			var cut = new RenderStatsToHtml(
+				weekMasterIn: null)
+			{
+				Season = "2025",
+				Week = 18,
+				WeeksToGoBack = 17
+			};
 
 			var dt = new DataTable();
 			cut.DefinePlayerCsvColumns(dt);
