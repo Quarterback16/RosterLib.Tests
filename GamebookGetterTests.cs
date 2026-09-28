@@ -16,12 +16,13 @@ namespace RosterLib.Tests
 		{
 			var tk = new TimeKeeper(clock: null);
 
-			if (DateTime.Now.DayOfWeek < DayOfWeek.Tuesday)
-				WeekToDownload = tk
-					.CurrentWeek();
-			else
+			if (DateTime.Now.DayOfWeek == DayOfWeek.Wednesday
+				|| DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
 				WeekToDownload = Int32.Parse(
 					tk.PreviousWeek());
+			else
+				WeekToDownload = tk
+					.CurrentWeek();
 
 			Week = new NFLWeek(
 				seasonIn: tk.CurrentSeason(),
