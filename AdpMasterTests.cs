@@ -1,4 +1,5 @@
-﻿using RosterLib.Helpers;
+﻿using Helpers;
+using RosterLib.Helpers;
 
 namespace RosterLib.Tests
 {
