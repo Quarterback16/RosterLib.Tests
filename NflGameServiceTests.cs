@@ -1,4 +1,4 @@
-﻿using RosterLib.Implementations;
+﻿using GameService_Std;
 
 namespace RosterLib.Tests
 {
@@ -10,7 +10,7 @@ namespace RosterLib.Tests
 		[TestInitialize]
 		public void Setup()
 		{
-			_sut = new NflGameService(2026);
+			_sut = new NflGameService();
 		}
 
 		[TestMethod]
