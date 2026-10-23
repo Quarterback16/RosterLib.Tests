@@ -16,13 +16,7 @@ namespace RosterLib.Tests
 		{
 			var tk = new TimeKeeper(clock: null);
 
-			if (DateTime.Now.DayOfWeek == DayOfWeek.Wednesday
-				|| DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
-				WeekToDownload = Int32.Parse(
-					tk.PreviousWeek());
-			else
-				WeekToDownload = tk
-					.CurrentWeek();
+			WeekToDownload = 7;
 
 			Week = new NFLWeek(
 				seasonIn: tk.CurrentSeason(),
@@ -32,16 +26,6 @@ namespace RosterLib.Tests
 				downloader: new Downloader(
 					outputFolder: SetOutputFolder()),
 				gs: new GameIdService());
-		}
-
-		private string SetOutputFolder()
-		{
-			var outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload:0#}\\";
-			if (Utility.HostName().ToUpper() == "MAHOMES")
-				outputFolder = $"c:\\tfl\\nfl\\gamebooks\\week {WeekToDownload:0#}\\";
-			Console.WriteLine(
-					$"Downloading Week {WeekToDownload} gamebooks to {outputFolder}");
-			return outputFolder;
 		}
 
 		[TestMethod]
@@ -55,10 +39,10 @@ namespace RosterLib.Tests
 		public void TestNewDownloadSinglePdf()
 		{
 			var result = Sut?.Download(
-				"2026",
-				1,
-				"bills",
-				"texans");
+				season: "2026",
+				week: 1,
+				awayTeam: "bills",
+				homeTeam: "texans");
 			Assert.IsTrue(result);
 		}
 
@@ -91,6 +75,16 @@ namespace RosterLib.Tests
 			var sut = new GamebookGetter(new Downloader());
 			var result = sut.Seed(week);
 			Assert.AreEqual("58838", result);
+		}
+
+		private string SetOutputFolder()
+		{
+			var outputFolder = $"d:\\tfl\\nfl\\gamebooks\\week {WeekToDownload:0#}\\";
+			if (Utility.HostName().ToUpper() == "MAHOMES")
+				outputFolder = $"c:\\tfl\\nfl\\gamebooks\\week {WeekToDownload:0#}\\";
+			Console.WriteLine(
+					$"Downloading Week {WeekToDownload} gamebooks to {outputFolder}");
+			return outputFolder;
 		}
 	}
 }

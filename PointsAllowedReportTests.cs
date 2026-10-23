@@ -19,6 +19,7 @@ namespace RosterLib.Tests
 				sut.FileOut);
 		}
 
+
 		[TestMethod]
 		public void TestReportSpecificWeek()
 		{
