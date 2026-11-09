@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.7" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.41" />
-    <PackageReference Include="WikiPages" Version="1.0.6" />
+    <PackageReference Include="WikiPages" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
