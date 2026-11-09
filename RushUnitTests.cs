@@ -1,4 +1,5 @@
-﻿using InjectorMicroService;
+﻿using Helpers;
+using InjectorMicroService;
 using RosterLib.Helpers;
 using RosterLib.Implementations;
 using RosterLib.Services;
@@ -173,7 +174,8 @@ namespace RosterLib.Tests
 
             var md = SeasonHelper.RushUnitsToMarkdown(
                 season,
-                new MarkdownInjector());
+                new MarkdownInjector(
+                    FolderHelper.GetObsidianNflStemFolder()));
             Assert.IsFalse(string.IsNullOrEmpty(md));
             Console.WriteLine(new String('+', 80));
             Console.WriteLine(md);

@@ -27,13 +27,13 @@
 
   <ItemGroup>
     <Reference Include="GameService-Std">
-      <HintPath>..\..\..\Dropbox\Services\GameService-Std.dll</HintPath>
+      <HintPath>..\..\..\Users\quart\Dropbox\Services\GameService-Std.dll</HintPath>
     </Reference>
     <Reference Include="NameFixerService-Std">
-      <HintPath>..\..\..\Dropbox\Services\NameFixerService-Std.dll</HintPath>
+      <HintPath>..\..\..\Users\quart\Dropbox\Services\NameFixerService-Std.dll</HintPath>
     </Reference>
     <Reference Include="PlayerService-2.0">
-      <HintPath>..\..\..\Dropbox\Services\PlayerService-2.0.dll</HintPath>
+      <HintPath>..\..\..\Users\quart\Dropbox\Services\PlayerService-2.0.dll</HintPath>
     </Reference>
   </ItemGroup>
 
