@@ -16,7 +16,7 @@ namespace RosterLib.Tests
 		{
 			var tk = new TimeKeeper(clock: null);
 
-			WeekToDownload = 10;
+			WeekToDownload = 11;
 
 			Week = new NFLWeek(
 				seasonIn: tk.CurrentSeason(),
